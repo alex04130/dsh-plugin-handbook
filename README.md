@@ -8,6 +8,8 @@
 
 适用：写 DSH 插件的人。判据：读完能否说出「这是什么、能拿它干什么」。
 
+**按哪个名字敲。** 本稿写的是一台跑 DSH 0.1.5-rc.2、插件装在 `$DSH_HOME` 里的**运行时**，不是某一个 npm 包的文件清单。`@dsh-forge/bundle@0.2.0-preview.1` 随包带的工具名是更早的一套（`session_*` / `model_*` / `dev_*` / `teams`）。你若只装了那个包，按包里的名字调，别照这里的 `forge_*` 敲。查你机器上的真名：有 cordis 工具面就 `cordis_inspect_query({ platform:'host', provider:'Tool', method:'listTools' })`；PTC 会话用 `tool_router({ action:'list' })`。以那份清单为准。
+
 **这几页里的词（第一次见）：**
 
 - **闸** —— 运行时对某个操作的校验。两种挡法：**拒绝**（给你原文报错，如 `append is not available on a read handle`），或**静默改变行为**（没有报错——更坑：你以为拿了只读句柄，实际拿到写权限）。每条闸都写「原文报错」栏，哪怕内容是「没有报错」。

@@ -4,6 +4,8 @@ This is a **community observation**. It is not DeepSeek Harness official documen
 
 Audience: people writing DSH plugins. Test: after reading, can you say what this is and what you can do with it.
 
+**Which names to type.** These pages describe a **runtime** (DSH 0.1.5-rc.2 plus plugins under `$DSH_HOME`), not the file list inside one npm tarball. `@dsh-forge/bundle@0.2.0-preview.1` still ships the older names (`session_*` / `model_*` / `dev_*` / `teams`). If that package is what you installed, call those names; do not copy the `forge_*` names from here. To see what your machine actually has: with the cordis tool surface, `cordis_inspect_query({ platform:'host', provider:'Tool', method:'listTools' })`; on a PTC session, `tool_router({ action:'list' })`. Trust that list.
+
 **Words on these pages (first mention):**
 
 - **gate** — a runtime check on an operation. Two ways it stops you: **refuse** (you get a verbatim error, e.g. `append is not available on a read handle`), or **silently change behaviour** (no error — worse: you think you have a read handle and you actually have write). Every gate writes a "verbatim error" field, even when the content is "there is no error".
