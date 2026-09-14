@@ -1,8 +1,8 @@
-# Community notes: DSH capabilities and gates
+# Full DSH notes
 
-A measured record of one live DSH install: what a plugin can hang on, whether it still works, and where the edge is. For people writing DSH plugins.
+Package-level reading of DeepSeek Harness, written up as this full cut for plugin work and for looking up how a mechanism actually runs. As of about 0.1.5-rc.2.
 
-Official API docs list interfaces. They do not list what 0.1.5 already retired. This cut fills that. As of about 0.1.5-rc.2. Your build may differ: read the version stamp, then run `verify.md`.
+Why it exists: an agent writing a DSH plugin often finds that an API exists, does not walk the call chain, and then spends turns pulling code and probing the runtime that a written chain would have saved. This cut records the chain, the edge, and what this version sealed.
 
 ## Where to start
 
