@@ -2,6 +2,8 @@
 
 截至 2026-09-14 · DSH 0.1.5-rc.2。
 
+要挂服务、听事件、占槽，却分不清目录上有和这次 `ctx.get` 拿得到：用这份清单。
+
 > 这是插件可挂面清单，不是 [l2-host.md](l2-host.md) / [l2-client.md](l2-client.md) 的第二稿。l2-host 管安装树声明面 108/94 编号（HSV/HEV/HBI）；本稿管**插件作者能挂的清单**：host service 检视目录 71（其中运行面挂 60 / 未挂 11）+ host event 目录 62 + host builtin 目录 7 + client service 目录 8 + client slot 61 + theme token 13。
 > 查法：`cordis_inspect_query` 给目录（Service.listService / Event.listEvents / Builtin.listBuiltins / Slots.listSubTree / Theme.listTokens）。服务「挂没挂」另走宿主层动态插件逐个 `ctx.get(name)`，**listService 本身不保证已挂**。
 > 编号不与 HSV/CSL 抢：本表无 CAP/GATE/HSV 号。slot / token 路径与 [l2-client.md](l2-client.md) 同源。

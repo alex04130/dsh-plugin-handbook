@@ -3,7 +3,7 @@
 
 As of 2026-09-13 · DSH 0.1.5-rc.2.
 
-Most capability docs only list APIs. This one teaches how to falsify your own conclusions.
+You do not trust a conclusion, or you upgraded and do not know what broke: run the positive-control and paired commands here. Most capability docs only list APIs. This one teaches how to falsify your own conclusions.
 
 ## Four rules
 

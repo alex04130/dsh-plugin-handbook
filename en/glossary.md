@@ -1,6 +1,6 @@
 # What these words mean (glossary)
 
-One line each, hooked to a mechanism. As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
+You hit gate, sealed, or declaration surface in the body and need one sentence. One line each, hooked to a mechanism. As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
 
 First mention of 预设 is **preset (预设)**; after that, `preset` only.
 

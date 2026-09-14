@@ -2,7 +2,7 @@
 
 # Can I still use this? (capability file)
 
-Full gate text is in `./gates.md`.
+The type file still lists this method, then the call blows up: this file says per entry whether you can still use it. Full gate text is in `./gates.md`.
 
 | Value | In plain words |
 |---|---|
