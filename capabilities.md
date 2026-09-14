@@ -508,7 +508,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 - **是什么**：`ctx.compaction` 把一段历史收成一条摘要节点。自动触发 `pressure` | `context-overflow`；手动压缩有一套错误码。
 - **实现位置**：`dsh-compaction/lib/types/index.d.ts:1-37`。`ManualCompactionErrorCode = 'busy' | 'cancelled' | 'changed' | 'summary' | 'commit' | 'persistence'`。
-- **当前状态**：**可用**（服务在；preset 要挂 compaction 相关行才会有 `/compact`。缺行则命令不存在，那是装配问题不是服务删除）。
+- **当前状态**：**可用**（服务在 agent 平面的 isolate realm，不在宿主面）。发行三 preset 均已带 compaction 组（`dsh-agent-presets/presets/ptc/agent.cordis.yml:145-159`；standard / cordis 同型）。宿主面 `dsh-web-app/cordis.patch.yml:427-434` 把 `compaction-basic` / `command-compact` / `tool-result-pruner` 标了 `disabled: true`。preset 缺这组则没有 `/compact`，那是装配问题不是服务删除。
 - **证据**：模块头「providers decide when to compact and replace a history range with one summary node」。手动失败走 `ManualCompactionError`。
 - **关联**：CAP-080、ENV-080。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**

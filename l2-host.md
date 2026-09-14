@@ -7,7 +7,7 @@
 | 面 | 怎么查 | 本观察的数 |
 |---|---|---|
 | **声明面（安装树）** | `.d.ts` 的 Context / Events 扩展 | 键 **108**、事件 **94**（本表主体 HSV/HEV） |
-| **声明面（检视目录）** | 活进程 `Service.listService` / `Event.listEvents` / `Builtin.listBuiltins` | service **71**、event **62**、builtin **7** |
+| **声明面（打包期接口表）** | `Service.listService` 转出的是生成期静态表，不是本机装载证明 | service **71**、event **62**、builtin **7**。表里可以有既无 `.d.ts`、也无实现包的行（`agentTeams` / `inspector` / `lsp`） |
 | **运行面** | 宿主层动态插件逐个 `ctx.get(name)` | service **60** 挂 / **11** 未挂。探针作用域 = 宿主层插件 ctx；只在别的 isolate 可见的，对插件作者等于拿不到。事件与 builtin 没有「挂没挂」，不标运行面 |
 
 运行面数字随 preset 变。工具面 `Tool.listTools` 跟 preset 走，不要写死成一个数。
@@ -36,7 +36,7 @@
 | HSV-014 | `codeRuntime` | dsh-code-runtime | dsh-code-runtime/lib/types/index.d.ts:58 | `ctx.get('codeRuntime')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
 | HSV-015 | `commands` | dsh-commands | dsh-commands/lib/types/index.d.ts:62 | `ctx.get('commands')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
 | HSV-016 | `commandUi` | dsh-client-ui-commands | dsh-client-ui-commands/lib/types/client/index.d.ts:21 | `ctx.get('commandUi')`；属性访问需 inject（GATE-052） | 未核实 |
-| HSV-017 | `compaction` | dsh-compaction | dsh-compaction/lib/types/index.d.ts:63 | `ctx.get('compaction')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
+| HSV-017 | `compaction` | dsh-compaction | dsh-compaction/lib/types/index.d.ts:63 | `ctx.get('compaction')`；属性访问需 inject（GATE-052） | 未挂（宿主行 disabled，服务在 agent 平面 isolate realm，见 CAP-082） |
 | HSV-018 | `configuredAgentIdentities` | dsh-agent-loop | dsh-agent-loop/lib/types/index.d.ts:37 | `ctx.get('configuredAgentIdentities')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-019 | `connection` | dsh-client-connection | dsh-client-connection/lib/types/rpc-host.d.ts:8 | `ctx.get('connection')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-020 | `cordisInspect` | dsh-cordis-client-runner | dsh-cordis-client-runner/lib/types/client/inspect-registry.d.ts:58 | `ctx.get('cordisInspect')`；属性访问需 inject（GATE-052） | 未核实 |
@@ -69,7 +69,7 @@
 | HSV-047 | `modelDirectories` | dsh-client-ui-model-selection | dsh-client-ui-model-selection/lib/types/client/service.d.ts:21 | `ctx.get('modelDirectories')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-048 | `modules` | dsh-client-modules | dsh-client-modules/lib/types/client/manifest.d.ts:35 | `ctx.get('modules')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-049 | `permissionPresets` | dsh-permission-presets | dsh-permission-presets/lib/types/index.d.ts:21 | `ctx.get('permissionPresets')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
-| HSV-050 | `planMode` | dsh-plan-mode | dsh-plan-mode/lib/types/index.d.ts:43 | `ctx.get('planMode')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
+| HSV-050 | `planMode` | dsh-plan-mode | dsh-plan-mode/lib/types/index.d.ts:43 | `ctx.get('planMode')`；属性访问需 inject（GATE-052） | 未挂（宿主行 disabled，服务在 agent 平面 isolate realm） |
 | HSV-051 | `reflect` | cordis | cordis/lib/types/context.d.ts:29 | `ctx.get('reflect')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-052 | `registry` | cordis | cordis/lib/types/context.d.ts:31 | `ctx.get('registry')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-053 | `remote` | dsh-api-gateway | dsh-api-gateway/lib/types/client/index.d.ts:42 | `ctx.get('remote')`；属性访问需 inject（GATE-052） | 未核实 |
@@ -109,10 +109,10 @@
 | HSV-087 | `subagents` | dsh-subagent | dsh-subagent/lib/types/index.d.ts:60 | `ctx.get('subagents')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
 | HSV-088 | `subprocess` | dsh-subprocess | dsh-subprocess/lib/types/index.d.ts:43 | `ctx.get('subprocess')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
 | HSV-089 | `systemPrompt` | dsh-system-prompt | dsh-system-prompt/lib/types/index.d.ts:12 | `ctx.get('systemPrompt')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
-| HSV-090 | `terminals` | dsh-terminal | dsh-terminal/lib/types/index.d.ts:15 | `ctx.get('terminals')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
+| HSV-090 | `terminals` | dsh-terminal | dsh-terminal/lib/types/index.d.ts:15 | `ctx.get('terminals')`；属性访问需 inject（GATE-052） | 未挂（实现在；仅 minimal preset 的 persistent-shell isolate 收，本机活动 preset 没选） |
 | HSV-091 | `theme` | dsh-client-ui-theme | dsh-client-ui-theme/lib/types/client/index.d.ts:86 | `ctx.get('theme')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-092 | `tokenMeter` | dsh-token-meter | dsh-token-meter/lib/types/index.d.ts:16 | `ctx.get('tokenMeter')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
-| HSV-093 | `toolResultPruner` | dsh-compaction-tool-result-pruner | dsh-compaction-tool-result-pruner/lib/types/index.d.ts:15 | `ctx.get('toolResultPruner')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
+| HSV-093 | `toolResultPruner` | dsh-compaction-tool-result-pruner | dsh-compaction-tool-result-pruner/lib/types/index.d.ts:15 | `ctx.get('toolResultPruner')`；属性访问需 inject（GATE-052） | 未挂（宿主行 disabled，服务在 agent 平面 isolate realm，见 CAP-082） |
 | HSV-094 | `tools` | dsh-tools | dsh-tools/lib/types/index.d.ts:26 | `ctx.get('tools')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
 | HSV-095 | `typert` | dsh-typert-protocol | dsh-typert-protocol/lib/types/types.d.ts:453 | `ctx.get('typert')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-096 | `typertGateway` | dsh-api-gateway | dsh-api-gateway/lib/types/types.d.ts:118 | `ctx.get('typertGateway')`；属性访问需 inject（GATE-052） | 未核实 |
@@ -124,7 +124,7 @@
 | HSV-102 | `web` | dsh-web | dsh-web/lib/types/index.d.ts:15 | `ctx.get('web')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
 | HSV-103 | `webhookRuntime` | dsh-webhook | dsh-webhook/lib/types/index.d.ts:8 | `ctx.get('webhookRuntime')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-104 | `webServer` | dsh-host-webserver | dsh-host-webserver/lib/types/index.d.ts:17 | `ctx.get('webServer')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
-| HSV-105 | `workflowEngine` | dsh-workflow | dsh-workflow/lib/types/index.d.ts:15 | `ctx.get('workflowEngine')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |
+| HSV-105 | `workflowEngine` | dsh-workflow | dsh-workflow/lib/types/index.d.ts:15 | `ctx.get('workflowEngine')`；属性访问需 inject（GATE-052） | 未挂（宿主行 disabled，服务在 agent 平面 isolate realm） |
 | HSV-106 | `workspaceController` | dsh-api-workspace-controller | dsh-api-workspace-controller/lib/types/index.d.ts:10 | `ctx.get('workspaceController')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-107 | `workspaceFiles` | dsh-api-workspace-files | dsh-api-workspace-files/lib/types/index.d.ts:30 | `ctx.get('workspaceFiles')`；属性访问需 inject（GATE-052） | 未核实 |
 | HSV-108 | `workspaceRegistry` | dsh-workspace | dsh-workspace/lib/types/index.d.ts:44 | `ctx.get('workspaceRegistry')`；属性访问需 inject（GATE-052） | 可用（判断层有专条则以其为准） |

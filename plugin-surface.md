@@ -4,7 +4,7 @@
 
 要挂服务、听事件、占槽，却分不清目录上有和这次 `ctx.get` 拿得到：用这份清单。
 
-> 查法：`cordis_inspect_query` 给目录（Service.listService / Event.listEvents / Builtin.listBuiltins / Slots.listSubTree / Theme.listTokens）。服务「挂没挂」另走宿主层动态插件逐个 `ctx.get(name)`，**listService 本身不保证已挂**。安装树声明面编号在 [l2-host.md](l2-host.md)；槽路径在 [l2-client.md](l2-client.md)。本表无 CAP/GATE/HSV 号。
+> 查法：`cordis_inspect_query` 给目录（Service.listService / Event.listEvents / Builtin.listBuiltins / Slots.listSubTree / Theme.listTokens）。目录名来自打包期元数据表（`dsh-tool-cordis/lib/index.js` 里 `key:` 正好 71），不是本机装载证明。服务「挂没挂」另走宿主层动态插件逐个 `ctx.get(name)`。安装树声明面编号在 [l2-host.md](l2-host.md)；槽路径在 [l2-client.md](l2-client.md)。本表无 CAP/GATE/HSV 号。
 
 <!-- doccheck:no-entries -->
 
@@ -31,32 +31,32 @@
 | `agentLoop` | agent 主循环 | 挂 | `ctx.get('agentLoop')` 判 undefined；hard dep 用 inject |
 | `agentPresets` | preset 装配 | 挂 | `ctx.get('agentPresets')` 判 undefined；hard dep 用 inject |
 | `agents` | agent 注册表 | 挂 | `ctx.get('agents')` 判 undefined；hard dep 用 inject |
-| `agentTeams` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('agentTeams')` 判 undefined；hard dep 用 inject |
+| `agentTeams` | （用途未核实） | **声明有、无实现包** | `ctx.get('agentTeams')` 判 undefined；hard dep 用 inject |
 | `approval` | 审批 | 挂 | `ctx.get('approval')` 判 undefined；hard dep 用 inject |
 | `attachments` | （用途未核实） | 挂 | `ctx.get('attachments')` 判 undefined；hard dep 用 inject |
 | `authorization` | 授权 | 挂 | `ctx.get('authorization')` 判 undefined；hard dep 用 inject |
 | `clientModules` | （用途未核实） | 挂 | `ctx.get('clientModules')` 判 undefined；hard dep 用 inject |
 | `codeRuntime` | （用途未核实） | 挂 | `ctx.get('codeRuntime')` 判 undefined；hard dep 用 inject |
 | `commands` | 命令 | 挂 | `ctx.get('commands')` 判 undefined；hard dep 用 inject |
-| `compaction` | 压缩 | **未挂**（声明有，本次装配未挂载） | `ctx.get('compaction')` 判 undefined；hard dep 用 inject |
+| `compaction` | 压缩 | **agent 面（preset realm）**（宿主行 disabled 是设计；服务在 isolate 组，CAP-082） | `ctx.get('compaction')` 判 undefined（宿主探针）；hard dep 用 inject |
 | `credentials` | （用途未核实） | 挂 | `ctx.get('credentials')` 判 undefined；hard dep 用 inject |
 | `credentialsController` | （用途未核实） | 挂 | `ctx.get('credentialsController')` 判 undefined；hard dep 用 inject |
 | `deepseekLlmApiExtensions` | （用途未核实） | 挂 | `ctx.get('deepseekLlmApiExtensions')` 判 undefined；hard dep 用 inject |
 | `directoryPicker` | （用途未核实） | 挂 | `ctx.get('directoryPicker')` 判 undefined；hard dep 用 inject |
 | `directoryPickerController` | （用途未核实） | 挂 | `ctx.get('directoryPickerController')` 判 undefined；hard dep 用 inject |
-| `e2b` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('e2b')` 判 undefined；hard dep 用 inject |
+| `e2b` | （用途未核实） | **包在、web 面没挂** | `ctx.get('e2b')` 判 undefined；hard dep 用 inject |
 | `fileReferences` | （用途未核实） | 挂 | `ctx.get('fileReferences')` 判 undefined；hard dep 用 inject |
 | `fileUploads` | （用途未核实） | 挂 | `ctx.get('fileUploads')` 判 undefined；hard dep 用 inject |
 | `fs` | 文件系统 | 挂 | `ctx.get('fs')` 判 undefined；hard dep 用 inject |
 | `goals` | 目标 | 挂 | `ctx.get('goals')` 判 undefined；hard dep 用 inject |
-| `inspector` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('inspector')` 判 undefined；hard dep 用 inject |
-| `invariants` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('invariants')` 判 undefined；hard dep 用 inject |
+| `inspector` | （用途未核实） | **声明有、无实现包** | `ctx.get('inspector')` 判 undefined；hard dep 用 inject |
+| `invariants` | （用途未核实） | **包在、web 面没挂** | `ctx.get('invariants')` 判 undefined；hard dep 用 inject |
 | `jobs` | 任务 | 挂 | `ctx.get('jobs')` 判 undefined；hard dep 用 inject |
 | `llm` | LLM 路由 | 挂 | `ctx.get('llm')` 判 undefined；hard dep 用 inject |
-| `lsp` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('lsp')` 判 undefined；hard dep 用 inject |
+| `lsp` | （用途未核实） | **声明有、无实现包** | `ctx.get('lsp')` 判 undefined；hard dep 用 inject |
 | `messageFeedback` | （用途未核实） | 挂 | `ctx.get('messageFeedback')` 判 undefined；hard dep 用 inject |
 | `permissionPresets` | （用途未核实） | 挂 | `ctx.get('permissionPresets')` 判 undefined；hard dep 用 inject |
-| `planMode` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('planMode')` 判 undefined；hard dep 用 inject |
+| `planMode` | （用途未核实） | **agent 面（preset realm）**（宿主 `plan-mode` disabled；preset `planning` isolate） | `ctx.get('planMode')` 判 undefined（宿主探针）；hard dep 用 inject |
 | `sandbox` | 沙箱 | 挂 | `ctx.get('sandbox')` 判 undefined；hard dep 用 inject |
 | `sandboxPolicy` | （用途未核实） | 挂 | `ctx.get('sandboxPolicy')` 判 undefined；hard dep 用 inject |
 | `sessionController` | remote.session backing（inspect） | 挂 | `ctx.get('sessionController')` 判 undefined；hard dep 用 inject |
@@ -83,18 +83,18 @@
 | `subagents` | 子代理注册表 | 挂 | `ctx.get('subagents')` 判 undefined；hard dep 用 inject |
 | `subprocess` | （用途未核实） | 挂 | `ctx.get('subprocess')` 判 undefined；hard dep 用 inject |
 | `systemPrompt` | 提示词组装 | 挂 | `ctx.get('systemPrompt')` 判 undefined；hard dep 用 inject |
-| `terminals` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('terminals')` 判 undefined；hard dep 用 inject |
+| `terminals` | （用途未核实） | **实现在、本机 preset 没选**（`dsh-terminal/lib/index.js:58`；仅 `presets/minimal/agent.cordis.yml:21-31` isolate） | `ctx.get('terminals')` 判 undefined（宿主探针）；hard dep 用 inject |
 | `timer` | 定时器 | 挂 | `ctx.get('timer')` 判 undefined；hard dep 用 inject |
 | `tokenMeter` | token 计量 | 挂 | `ctx.get('tokenMeter')` 判 undefined；hard dep 用 inject |
-| `toolResultPruner` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('toolResultPruner')` 判 undefined；hard dep 用 inject |
+| `toolResultPruner` | （用途未核实） | **agent 面（preset realm）**（与 compaction 同组 isolate，CAP-082） | `ctx.get('toolResultPruner')` 判 undefined（宿主探针）；hard dep 用 inject |
 | `tools` | 工具注册/执行/restrict/guard | 挂 | `ctx.get('tools')` 判 undefined；hard dep 用 inject |
 | `typert` | typert RPC | 挂 | `ctx.get('typert')` 判 undefined；hard dep 用 inject |
 | `typertGateway` | （用途未核实） | 挂 | `ctx.get('typertGateway')` 判 undefined；hard dep 用 inject |
 | `userQuestions` | （用途未核实） | 挂 | `ctx.get('userQuestions')` 判 undefined；hard dep 用 inject |
 | `web` | （用途未核实） | 挂 | `ctx.get('web')` 判 undefined；hard dep 用 inject |
-| `webhookRuntime` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('webhookRuntime')` 判 undefined；hard dep 用 inject |
+| `webhookRuntime` | （用途未核实） | **包在、web 面没挂** | `ctx.get('webhookRuntime')` 判 undefined；hard dep 用 inject |
 | `webServer` | web 服务 | 挂 | `ctx.get('webServer')` 判 undefined；hard dep 用 inject |
-| `workflowEngine` | （用途未核实） | **未挂**（声明有，本次装配未挂载） | `ctx.get('workflowEngine')` 判 undefined；hard dep 用 inject |
+| `workflowEngine` | （用途未核实） | **agent 面（preset realm）**（宿主 workflow 行 disabled；preset `delegation` isolate） | `ctx.get('workflowEngine')` 判 undefined（宿主探针）；hard dep 用 inject |
 | `workspaceController` | （用途未核实） | 挂 | `ctx.get('workspaceController')` 判 undefined；hard dep 用 inject |
 | `workspaceFiles` | （用途未核实） | 挂 | `ctx.get('workspaceFiles')` 判 undefined；hard dep 用 inject |
 | `workspaceRegistry` | 工作区注册表 | 挂 | `ctx.get('workspaceRegistry')` 判 undefined；hard dep 用 inject |
@@ -287,4 +287,9 @@
 
 - 服务用途未核实的标「未核实」，查发行版包的 `.d.ts` 或本观察的 api 目录定向。
 - 事件/slot 全表来自运行面采集（Event.listEvents / Slots.listSubTree）。token 全称对齐 `Theme.listTokens` dump。
-- 未挂 11：`agentTeams` `compaction` `e2b` `inspector` `invariants` `lsp` `planMode` `terminals` `toolResultPruner` `webhookRuntime` `workflowEngine`。
+- 宿主探针 absent 11，四类：
+  - agent 面（preset realm，4）：`compaction` `toolResultPruner` `planMode` `workflowEngine`。宿主行被 web bundle disabled，服务在 preset isolate 组。发行三 preset 均已带。想用：preset 带那一组。见 CAP-082。
+  - 包在、web 面没挂（3）：`e2b` `invariants` `webhookRuntime`。
+  - 实现在、本机 preset 没选（1）：`terminals`。实现 `dsh-terminal/lib/index.js:58`；收方仅 `presets/minimal/agent.cordis.yml:21-31`。ptc/standard/cordis 与用户 preset 都无行。
+  - 声明有、安装树无实现包（3）：`agentTeams` `inspector` `lsp`（打包期表 `dsh-tool-cordis/lib/index.js` `:425` / `:1750` / `:2094`）。
+  另：preset 里 `disabled: true` 的可选 provider（如 tool-subagent-codex）是第五形态，11 个里没有。
