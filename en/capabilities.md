@@ -2,8 +2,17 @@
 
 # Can I still use this? (capability file)
 
-Full gate text is in `./gates.md`. How to read the five values: available = it runs; partially available = factory-off, recipe turns it on; sealed = every entry fails and there is no on-switch; never available = never existed; unverified = this observation did not run it.
-As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2. Five-value status: `available` / `partially available (off by default; recipe attached)` / `sealed (gate id attached)` / `never available` / `unverified`.
+Full gate text is in `./gates.md`.
+
+| Value | In plain words |
+|---|---|
+| available | it runs; outside the boundary it should fail |
+| partially available (off by default; recipe attached) | factory-off; follow the recipe and it works |
+| sealed (gate id attached) | every entry fails, and there is no on-switch |
+| never available | never in the value domain; not something that was turned off |
+| unverified | this observation did not run it; not a conclusion |
+
+As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
 Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
 
@@ -39,7 +48,7 @@ First mention: preset (预设). After this, `preset`.
 | CAP-065 | Can a subagent widen its sandbox from inside | sealed (GATE-032) |
 | CAP-061 | What if approval has no answerer | available |
 | CAP-034 | Whose model does a subagent use by default | available |
-| CAP-070 | Change route but omit thinking effort — what happens | available |
+| CAP-070 | Change route but omit thinking effort: what happens | available |
 | CAP-080 | What we use agent/session-start for | available |
 | CAP-081 | Can I stop a tool call before it runs | available |
 | CAP-090 | How many times does one preset hang in the process | available |
@@ -82,7 +91,7 @@ try {
 - **Status**: **available** (given you got the write lease).
 - **Evidence**: abstract-class comments say service-level `append` is gone (`index.d.ts:86-87` says append lives on the **handle**, best-effort; flush is the durability barrier). Old `persistence.append(id, events)` is `is not a function`.
 - **Limits**: a live write owner yields `SessionAlreadyOwnedError`.
-- **Merge note (A CAP-001)**: A folded read/append into "partially available" because old service-level append/inspect vanished. Read is CAP-001 (available); append is this entry — still gated by the write lease and `SessionAccess='write'`. Those limits stay here; the whole entry is not walked back to partially available.
+- **Merge note (A CAP-001)**: A folded read/append into "partially available" because old service-level append/inspect vanished. Read is CAP-001 (available); append is this entry, still gated by the write lease and `SessionAccess='write'`. Those limits stay here; the whole entry is not walked back to partially available.
 - **We depend on this**: <compat-plugin> writes `agent-preset/selected`, <compat-plugin> writes `request/header`, both via `appendCompat()`.
 - **Related**: GATE-001, GATE-002.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -103,11 +112,11 @@ try {
 
 - **What it is**: old core `sessionPersistence.inspect(id)` returned metadata + full text in one shot.
 - **Implementation**: that method is no longer on the `SessionPersistence` abstract class. GATE-002. Separately, `sessionController` / generated face `ctx.remote.session.inspect(sessionId)` (`dsh-tool-cordis/lib/index.js:2288-2301`) → `SessionInspection` (includes events).
-- **Status**: **sealed (GATE-002)** — the `sessionPersistence.inspect` entry. `sessionController.inspect` is still there and walks the same format gate (a v2 descriptor blows up the same way).
+- **Status**: **sealed (GATE-002)** for the `sessionPersistence.inspect` entry. `sessionController.inspect` is still there and walks the same format gate (a v2 descriptor blows up the same way).
 - **Evidence**: persistence package has no `inspect`. Cordis tool surface still declares remote.session.inspect.
 - **Entry enumeration**:
   1. Service face `sessionPersistence.inspect`: not a function (2026-09-14 isolation script).
-  2. Remote face `sessionController.inspect`: rerun 2026-09-14 on a session with the cordis tool surface. Positive control v3 `ok: true, eventCount: 11614`. Negative v2 bare uuid → `failed to **observe** session "...": subagent/descriptor 0 uses unsupported descriptor version 2`. The other entry on the same gate (cross-session read) says **read**, not observe — two entries, not one function in a different shell.
+  2. Remote face `sessionController.inspect`: rerun 2026-09-14 on a session with the cordis tool surface. Positive control v3 `ok: true, eventCount: 11614`. Negative v2 bare uuid → `failed to **observe** session "...": subagent/descriptor 0 uses unsupported descriptor version 2`. The other entry on the same gate (cross-session read) says **read**, not observe. Two entries, not one function in a different shell.
 - **Bypass**: read the body with stat+open+read (CAP-001).
 - **Related**: GATE-002, CAP-001.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -137,7 +146,7 @@ try {
 - **Related**: CAP-023.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
 - **In one sentence**: it does not strip own-layer tools; it only filters what was inherited from a parent.
-- **restrict family note (A CAP-003)**: using `tools.restrict` as a "progressive disclosure primitive" (stripped tools still reachable via `tool_router`) is **falsified** — stripped names vanish on that agent, and router forward is also `unknown tool` (one measured tool-surface narrowing, `<internal-notes>`). The right path is narrow-at-register: preset lines, or scoped `agent.ctx.tools.register` (A CAP-032 / this entry's own-layer exemption). restrict itself is not fully dead: GATE-021 blocks global, GATE-020 blocks naming run_code, this entry says own-layer tools are not filtered.
+- **restrict family note (A CAP-003)**: using `tools.restrict` as a "progressive disclosure primitive" (stripped tools still reachable via `tool_router`) is **falsified**: stripped names vanish on that agent, and router forward is also `unknown tool` (one measured tool-surface narrowing, `<internal-notes>`). The right path is narrow-at-register: preset lines, or scoped `agent.ctx.tools.register` (A CAP-032 / this entry's own-layer exemption). restrict itself is not fully dead: GATE-021 blocks global, GATE-020 blocks naming run_code, this entry says own-layer tools are not filtered.
 
 ## CAP-021 · Can one session call another session's tools
 
@@ -275,10 +284,10 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
   - even a hard pass throws at `:64` `child model selection is disabled for this tool instance`
   - on but Host missing the settings module, `:587` throws `tool-subagent: \`modelSelectionSettings\` requires @deepseek-ai/dsh-tool-subagent/model-selection-settings in the Host scope`
   - that module is in the package: `dsh-tool-subagent/package.json` export `./model-selection-settings` → `lib/model-selection-settings.js`
-  - <team-preset> has no tool-subagent line (CAP-044) — recipe step zero is installing that tool line
+  - <team-preset> has no tool-subagent line (CAP-044). Recipe step zero is installing that tool line
 - **Unlock recipe**: GATE-031's three-row table (tool instance `modelSelectionSettings: true` + Host mounts `@deepseek-ai/dsh-tool-subagent/model-selection-settings` + user setting enabled and allowedModels non-empty). Live presets did not take this path; current user-setting value **unverified**.
 - **The other live path**: service layer is not off (CAP-030). Our `<spawn-tool>` (CAP-033) takes that path, not the official tool.
-- **We depend on this**: strategy "subagent on a cheaper model for grunt work" — official tool can be turned on; what we actually use now is our own spawn.
+- **We depend on this**: strategy "subagent on a cheaper model for grunt work". The official tool can be turned on; what we actually use now is our own spawn.
 - **Related**: GATE-031, CAP-030, CAP-033, CAP-044.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
 - **In one sentence**: cannot change by default; the three-piece recipe turns it on. The API docs only say the fields exist, not that they are off by default.
@@ -299,9 +308,9 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 - **What it is**: a 0.1.4-written `subagent/descriptor` with version=2.
 - **Implementation**: GATE-010.
-- **Status**: **sealed (GATE-010)**. Unclassifiable on this runtime. Not off-by-default — version must be 3; there is no "accept v2" switch.
+- **Status**: **sealed (GATE-010)**. Unclassifiable on this runtime. Not off-by-default: version must be 3; there is no "accept v2" switch.
 - **Evidence**: parse of non-3 returns `undefined`; panel observe failure gives diagnostic `"unavailable"`.
-- **Whether `session_read` / cross-session layer_read throw**: another independent observation reading a v2 session `<v2-subagent-session>...` → `failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`. Fold path is still `version !== 3 → undefined` (`dsh-subagent/lib/index.js:1359`). Read path throws, fold path is silent — both stay.
+- **Whether `session_read` / cross-session layer_read throw**: another independent observation reading a v2 session `<v2-subagent-session>...` → `failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`. Fold path is still `version !== 3 → undefined` (`dsh-subagent/lib/index.js:1359`). Read path throws, fold path is silent. Both stay.
 - **We depend on this**: one descriptor migration already moved 120 live-tree rows 2→3. Newly produced descriptors are 3.
 - **Related**: GATE-010.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -334,7 +343,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 - **What it is**: official `dsh-tool-skill` registers a tool named `skill` (load a skill body). A skill-manager plugin of ours once planned to fold `skill_list/show/add/...` into one tool also named `skill`.
 - **Implementation**: official tool package `dsh-tool-skill` (this session's tool list already has `skill`, description "Load the full instructions for an available skill"). Our six-pack is `skill_list` etc., still separate names.
-- **Status**: **available** (the two name sets do not collide now); **folding the six-pack into `skill` would shadow the official tool** — that would be our accident, not a host seal.
+- **Status**: **available** (the two name sets do not collide now); **folding the six-pack into `skill` would shadow the official tool**. That would be our accident, not a host seal.
 - **Evidence**: runtime tool list has both official `skill` (load skill body) and management tools `skill_list` / `skill_show`. Merging the management face onto the name `skill` would shadow the official tool.
 - **Related**: no GATE.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -428,7 +437,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 # Model routing and delegation
 
-## CAP-070 · Change route but omit thinking effort — what happens
+## CAP-070 · Change route but omit thinking effort: what happens
 
 - **What it is**: `agentOptions` only changes model, no reasoningEffort.
 - **Implementation**: `child-agent.js:89-91`.
@@ -466,7 +475,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 ## CAP-090 · How many times does one preset hang in the process
 
-- **What it is**: ten sessions all pick <team-preset> — is tool registration 1 copy or 10.
+- **What it is**: ten sessions all pick <team-preset>. Is tool registration 1 copy or 10?
 - **Implementation**: `dsh-agent-presets/lib/types/index.d.ts:1-20`: each preset `cordis.yml` is a **standing mount once**; sessions join via scope parentage. `composeFrom` (`:231`) lets a subagent join **the standing composition the parent is using**, so the child does not see an empty tool table (`child-agent.js:157-158`).
 - **Status**: **available**.
 - **Evidence**: module header. Also background for GATE-091: standing mount is one per preset, but some services are process-global, so two presets each hanging once collide.
@@ -557,7 +566,7 @@ Disk generation 0 is still named `session.jsonl.zstd` (ENV-003); that is the phy
 
 - **What it is**: `ctx.compaction` folds a history range into one summary node. Auto triggers `pressure` | `context-overflow`; manual compact has an error-code set.
 - **Implementation**: `dsh-compaction/lib/types/index.d.ts:1-37`. `ManualCompactionErrorCode = 'busy' | 'cancelled' | 'changed' | 'summary' | 'commit' | 'persistence'`.
-- **Status**: **available** (the service is there; the preset must hang compaction-related lines for `/compact` — missing lines means the command is absent, an assembly issue not a deleted service).
+- **Status**: **available** (the service is there; the preset must hang compaction-related lines for `/compact`. Missing lines means the command is absent, an assembly issue not a deleted service).
 - **Evidence**: module header "providers decide when to compact and replace a history range with one summary node". Manual failure is `ManualCompactionError`.
 - **Related**: CAP-080, ENV-080.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**

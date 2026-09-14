@@ -2,7 +2,7 @@
 
 # Where things live, where the edges are (environment facts)
 
-Answers layout, naming, hot reload, preset (session assembly) syntax, deploy, presentation cost, service names and event names. Does not answer "can I still use this" — that is `./capabilities.md`.
+Answers layout, naming, hot reload, preset (session assembly) syntax, deploy, presentation cost, service names and event names. Does not answer "can I still use this"; that is `./capabilities.md`.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
 
 First mention: preset (预设). After this, `preset`.
@@ -39,11 +39,11 @@ First mention: preset (预设). After this, `preset`.
 | `dynplugins/` | Dynamic plugin sources (<hot-reload-plugin> watches here) |
 | `auto-plugins.json` | <dyn-boot-plugin> restore manifest |
 | `storages/` | json storage backend root (workspace.json etc.) |
-| `project-memory/` | **Not shipped with DSH.** A community-plugin convention for project notes; no official guarantee |
+| `project-memory/` | A community-plugin convention for project notes |
 | `docs/` | Build sheets, this doc set |
 | `tmp/` | In-session intermediates (`/tmp` is wiped after each bash; do not put them there) |
 | `exports/` | `<cross-session-tool>` plaintext export |
-| `backups/` | **Not shipped with DSH.** A deploy convention for pre-migration log backups; no official guarantee |
+| `backups/` | A deploy convention for pre-migration log backups |
 | `archive/` | Sweep archive |
 | `injector/` | Runtime injected-package registry |
 | `state/` | Includes `tool-manifest.md` |
@@ -89,7 +89,7 @@ Try 'ls --help' for more information.
 | `session.lock` | 28 | write lock |
 | `meta.json` | 24 | sidecar metadata (not the event log) |
 
-"They are all called session.v3.jsonl.zstd" is false. Do not read logs by filename — under mixed v3 migration an old name silently reads empty. Use the session-read API / `export`.
+"They are all called session.v3.jsonl.zstd" is false. Do not read logs by filename. Under mixed v3 migration an old name silently reads empty. Use the session-read API / `export`.
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
 
 ## ENV-010 · How to take a service name, common misspellings
@@ -128,7 +128,7 @@ Third-party services registered onto Context are not in this official types list
 
 | # | Kind | Content |
 |---|---|---|
-| ① | Source | `<hot-reload-plugin>.mjs:177`: `if (!/\.mjs$/.test(fn) \|\| fn === SELF_FILE \|\| /\.r\\d+\.mjs$/.test(fn)) return` — a change whose name already has `.rN` returns immediately, does not schedule a rename-reload |
+| ① | Source | `<hot-reload-plugin>.mjs:177`: `if (!/\.mjs$/.test(fn) \|\| fn === SELF_FILE \|\| /\.r\\d+\.mjs$/.test(fn)) return`. A change whose name already has `.rN` returns immediately and does not schedule a rename-reload |
 | ② | This machine file face | `profiles/web/plugins/` 21 `.mjs`: 16 `.rN.mjs` (including <host-plugin> / a skill-manager plugin.r1 / <host-plugin> and all business plugins); **no** basename like `cross-session layer.mjs` / `a skill-manager plugin.mjs`. Plus 5 unversioned: `<dyn-boot-plugin>.mjs` `<bridge-plugin>.mjs` `<extra-unversioned>.mjs` `web-search-kimi.mjs` `web-search-select.mjs` (only these five pass :177) |
 | ③ | Live evidence (replayable) | value on disk ≠ value reread from the runtime face, table below |
 

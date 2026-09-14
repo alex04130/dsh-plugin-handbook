@@ -1,6 +1,6 @@
 # 东西在哪、边界在哪？（环境事实）
 
-答布局、命名、热载、preset（会话装配）语法、部署、呈现代价、服务名和事件名。不答「能不能用」——那是 `./capabilities.md`。
+答布局、命名、热载、preset（会话装配）语法、部署、呈现代价、服务名和事件名。不答「能不能用」，那是 `./capabilities.md`。
 截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2。
 
 ## 索引
@@ -35,11 +35,11 @@
 | `dynplugins/` | 动态插件源文件（<hot-reload-plugin> 盯这里） |
 | `auto-plugins.json` | <dyn-boot-plugin> 恢复清单 |
 | `storages/` | json storage 后端根（含 workspace.json 等） |
-| `project-memory/` | **不是 DSH 自带。** 某一类社区插件把项目笔记放这里的惯例；没有官方保证 |
+| `project-memory/` | 某一类社区插件把项目笔记放这里的惯例 |
 | `docs/` | 施工单、本套文档 |
 | `tmp/` | 会话中间产物（`/tmp` 每条 bash 后清空，别放那儿） |
 | `exports/` | `<cross-session-tool>` 明文导出 |
-| `backups/` | **不是 DSH 自带。** 某一类部署把迁移前日志备份放这里的惯例；没有官方保证 |
+| `backups/` | 某一类部署把迁移前日志备份放这里的惯例 |
 | `archive/` | 清扫归档 |
 | `injector/` | 运行时注入包注册表 |
 | `state/` | 含 `tool-manifest.md` |
@@ -86,7 +86,7 @@ Try 'ls --help' for more information.
 | `session.lock` | 28 | 写锁 |
 | `meta.json` | 24 | 侧车元数据（不是事件日志） |
 
-有人以为「都叫 session.v3.jsonl.zstd」不成立。读日志不要按文件名直读——v3 混合迁移下旧名会静默读空。走会话读取 API / `export`。
+有人以为「都叫 session.v3.jsonl.zstd」不成立。读日志不要按文件名直读。v3 混合迁移下旧名会静默读空。走会话读取 API / `export`。
 - **状态戳**：截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
 
 ## ENV-010 · 服务名怎么取，常见写错
@@ -125,7 +125,7 @@ agentDefaultModel agentLoop agentPresets agents appExit appReady approval attach
 
 | # | 类型 | 内容 |
 |---|---|---|
-| ① | 源码 | `<hot-reload-plugin>.mjs:177`：`if (!/\.mjs$/.test(fn) \|\| fn === SELF_FILE \|\| /\.r\\d+\.mjs$/.test(fn)) return` —— 文件名已带 `.rN` 的改动直接 return，不 schedule 换名重载 |
+| ① | 源码 | `<hot-reload-plugin>.mjs:177`：`if (!/\.mjs$/.test(fn) \|\| fn === SELF_FILE \|\| /\.r\\d+\.mjs$/.test(fn)) return`。文件名已带 `.rN` 的改动直接 return，不 schedule 换名重载 |
 | ② | 本机文件面 | `profiles/web/plugins/` 21 个 `.mjs`：16 个 `.rN.mjs`（含 <host-plugin> / a skill-manager plugin.r1 / <host-plugin> 等全部业务插件）；**没有** `cross-session layer.mjs` / `a skill-manager plugin.mjs` 这种基名。另有 5 个未版本化：`<dyn-boot-plugin>.mjs` `<bridge-plugin>.mjs` `<extra-unversioned>.mjs` `web-search-kimi.mjs` `web-search-select.mjs`（这五个才会被 :177 放行） |
 | ③ | 活证据（可复跑） | 文件里的值 ≠ 运行时面回读的值，见下表 |
 

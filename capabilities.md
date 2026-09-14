@@ -1,7 +1,16 @@
 # 还能不能用？（能力档）
 
-闸的全文在 `./gates.md`。五值怎么读：可用=能跑；部分可用=出厂关着、配方能开；封死=所有入口都过不去且没有打开开关；从未可用=从来没有过；未核实=这台观察没跑到。
-截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2。状态五值：`可用` / `部分可用（默认关，附配方）` / `已被封死（附闸号）` / `从未可用` / `未核实`。
+闸的全文在 `./gates.md`。
+
+| 值 | 白话 |
+|---|---|
+| 可用 | 能跑通；边界外应当失败 |
+| 部分可用（默认关，附配方） | 出厂关着，按配方打开就能用 |
+| 已被封死（附闸号） | 所有入口都过不去，且没有打开开关 |
+| 从未可用 | 取值域里从来没有过，不是被关掉的 |
+| 未核实 | 这台观察没跑到，别当结论 |
+
+截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2。
 跨引用用 CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx，或 `./<file>.md`。
 行号对 `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<包>/lib/...`。
 
@@ -80,7 +89,7 @@ try {
 - **当前状态**：**可用**（拿到写租约的前提下）。
 - **证据**：抽象类注释写明服务级 `append` 已不存在（`index.d.ts:86-87` 说 append 在 **handle** 上，best-effort；flush 才是耐久屏障）。旧 `persistence.append(id, events)` 会 `is not a function`。
 - **限制**：已有活的 write owner 会 `SessionAlreadyOwnedError`。
-- **并入备注（A CAP-001）**：A 把读/追加合成「部分可用」，是因为旧 service 级 append/inspect 没了。读走 CAP-001（可用），追加走本条——仍要写租约与 `SessionAccess='write'` 守卫，这两条限定留在这里，不把整条改回部分可用。
+- **并入备注（A CAP-001）**：A 把读/追加合成「部分可用」，是因为旧 service 级 append/inspect 没了。读走 CAP-001（可用），追加走本条，仍要写租约与 `SessionAccess='write'` 守卫，这两条限定留在这里，不把整条改回部分可用。
 - **我们依赖**：<compat-plugin> 写 `agent-preset/selected`、<compat-plugin> 写 `request/header`，都走 `appendCompat()`。
 - **关联**：GATE-001、GATE-002。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
@@ -101,11 +110,11 @@ try {
 
 - **是什么**：旧核 `sessionPersistence.inspect(id)` 一次返回元数据+全文。
 - **实现位置**：该方法已不在 `SessionPersistence` 抽象类上。GATE-002。另有 `sessionController` / 生成面 `ctx.remote.session.inspect(sessionId)`（`dsh-tool-cordis/lib/index.js:2288-2301`）→ `SessionInspection`（含 events）。
-- **当前状态**：**已被封死（GATE-002）**——`sessionPersistence.inspect` 入口。`sessionController.inspect` 仍在，走同一道格式闸（v2 描述符同样炸）。
+- **当前状态**：**已被封死（GATE-002）**：`sessionPersistence.inspect` 入口。`sessionController.inspect` 仍在，走同一道格式闸（v2 描述符同样炸）。
 - **证据**：persistence 包无 `inspect`。cordis 工具面仍声明 remote.session.inspect。
 - **入口枚举**：
   1. 服务面 `sessionPersistence.inspect`：不是 function（2026-09-14 隔离脚本）。
-  2. 远程面 `sessionController.inspect`：2026-09-14 装了 cordis 工具面的会话补跑。正控 v3 会话 `ok: true, eventCount: 11614`。反例 v2 裸 uuid → `failed to **observe** session "...": subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`。同闸另一入口（cross-session read）动词是 **read** 不是 observe——两个入口，不是同一个函数换壳。
+  2. 远程面 `sessionController.inspect`：2026-09-14 装了 cordis 工具面的会话补跑。正控 v3 会话 `ok: true, eventCount: 11614`。反例 v2 裸 uuid → `failed to **observe** session "...": subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`。同闸另一入口（cross-session read）动词是 **read** 不是 observe。两个入口，不是同一个函数换壳。
 - **绕法**：读正文用 stat+open+read（CAP-001）。
 - **关联**：GATE-002、CAP-001。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
@@ -135,7 +144,7 @@ try {
 - **关联**：CAP-023。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
 - **一句话**：不会摘自己层的工具；只滤从父级继承来的。
-- **restrict 家族总注记（A CAP-003）**：拿 `tools.restrict` 当「渐进披露原语」（摘掉的工具还经 `tool_router` 调得到）**已证伪**——被摘的名字在该 agent 上直接消失，router 转发也 `unknown tool`（一次工具面收窄实测，`<internal-notes>`）。正确路线是注册期收窄：预设行，或 `agent.ctx.tools.register` 的 scoped 注册（A CAP-032 / 本条 CAP-020 的本层豁免）。restrict 本身没全废：GATE-021 卡全局、GATE-020 卡点名 run_code、本条说本层工具不被滤。
+- **restrict 家族总注记（A CAP-003）**：拿 `tools.restrict` 当「渐进披露原语」（摘掉的工具还经 `tool_router` 调得到）**已证伪**：被摘的名字在该 agent 上直接消失，router 转发也 `unknown tool`（一次工具面收窄实测，`<internal-notes>`）。正确路线是注册期收窄：预设行，或 `agent.ctx.tools.register` 的 scoped 注册（A CAP-032 / 本条 CAP-020 的本层豁免）。restrict 本身没全废：GATE-021 卡全局、GATE-020 卡点名 run_code、本条说本层工具不被滤。
 
 ## CAP-021 · 一个会话能调另一个会话的工具吗
 
@@ -275,10 +284,10 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
   - 即便硬传，`:64` 抛 `child model selection is disabled for this tool instance`
   - 开了但 Host 没挂设置模块，`:587` 抛 `tool-subagent: \`modelSelectionSettings\` requires @deepseek-ai/dsh-tool-subagent/model-selection-settings in the Host scope`
   - 那个模块在包里：`dsh-tool-subagent/package.json` 导出 `./model-selection-settings` → `lib/model-selection-settings.js`
-  - <team-preset> preset 没有 tool-subagent 行（CAP-044）——配方的第零步是先把工具行装上
+  - <team-preset> preset 没有 tool-subagent 行（CAP-044）。配方的第零步是先把工具行装上
 - **解锁配方**：GATE-031 的三列表（工具实例 `modelSelectionSettings: true` + Host 挂 `@deepseek-ai/dsh-tool-subagent/model-selection-settings` + 用户设置 enabled 且 allowedModels 非空）。现役 preset 没走这条，用户设置当前值 **未核实**。
 - **另一条活路**：服务层没关（CAP-030）。我们 `<spawn-tool>`（CAP-033）走那条，不靠官方工具。
-- **我们依赖**：战略上「子代理换便宜模型做苦力」——官方工具能开；现在我们实际用的是自己的 spawn。
+- **我们依赖**：战略上「子代理换便宜模型做苦力」。官方工具能开；现在我们实际用的是自己的 spawn。
 - **关联**：GATE-031、CAP-030、CAP-033、CAP-044。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
 - **一句话**：默认不能换；配方三件套打开就能换。API 文档只写了字段在，没写默认关。
@@ -299,9 +308,9 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 - **是什么**：0.1.4 写下的 `subagent/descriptor` version=2。
 - **实现位置**：GATE-010。
-- **当前状态**：**已被封死（GATE-010）**。对本运行时无法归类。不是默认关——version 必须是 3，没有「接受 v2」的开关。
+- **当前状态**：**已被封死（GATE-010）**。对本运行时无法归类。不是默认关：version 必须是 3，没有「接受 v2」的开关。
 - **证据**：parse 非 3 返回 `undefined`；面板 observe 失败给 diagnostic `"unavailable"`。
-- **`session_read` / cross-session layer_read 是否 throw**：另一份独立观察实测读 v2 会话 `<v2-subagent-session>...` → `failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`。fold 路径仍是 `version !== 3 → undefined`（`dsh-subagent/lib/index.js:1359`）。读路径 throw、折叠路径静默——两条都留。
+- **`session_read` / cross-session layer_read 是否 throw**：另一份独立观察实测读 v2 会话 `<v2-subagent-session>...` → `failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`。fold 路径仍是 `version !== 3 → undefined`（`dsh-subagent/lib/index.js:1359`）。读路径 throw、折叠路径静默。两条都留。
 - **我们依赖**：一次描述符迁移 已把活树 120 条 2→3。新产生的描述符是 3。
 - **关联**：GATE-010。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
@@ -334,7 +343,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 
 - **是什么**：官方 `dsh-tool-skill` 注册的工具名是 `skill`（加载技能正文）。我们 a skill-manager plugin 曾计划把 `skill_list/show/add/...` 合成一个也叫 `skill` 的工具。
 - **实现位置**：官方工具包 `dsh-tool-skill`（本会话工具清单里已有 `skill`，description 是「Load the full instructions for an available skill」）。我们六件套是 `skill_list` 等，现仍分名。
-- **当前状态**：**可用**（两套名字现在不撞）；**若把六件套并进 `skill` 会把官方工具顶掉**——那是我们自己的事故，不是宿主封死。
+- **当前状态**：**可用**（两套名字现在不撞）；**若把六件套并进 `skill` 会把官方工具顶掉**。那是我们自己的事故，不是宿主封死。
 - **证据**：运行时工具清单里同时有官方 `skill`（加载技能正文）和 `skill_list` / `skill_show` 等管理工具。把管理面并进 `skill` 这个名字会顶掉官方工具。
 - **关联**：无 GATE。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
@@ -570,7 +579,7 @@ session header version must be 3, got <n>
 
 - **是什么**：`ctx.compaction` 把一段历史收成一条摘要节点。自动触发 `pressure` | `context-overflow`；手动压缩有一套错误码。
 - **实现位置**：`dsh-compaction/lib/types/index.d.ts:1-37`。`ManualCompactionErrorCode = 'busy' | 'cancelled' | 'changed' | 'summary' | 'commit' | 'persistence'`。
-- **当前状态**：**可用**（服务在；preset 要挂 compaction 相关行才会有 `/compact`——缺行则命令不存在，那是装配问题不是服务删除）。
+- **当前状态**：**可用**（服务在；preset 要挂 compaction 相关行才会有 `/compact`。缺行则命令不存在，那是装配问题不是服务删除）。
 - **证据**：模块头「providers decide when to compact and replace a history range with one summary node」。手动失败走 `ManualCompactionError`。
 - **关联**：CAP-080、ENV-080。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**

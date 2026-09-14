@@ -28,7 +28,7 @@ Most capability docs only list APIs. This one teaches how to falsify your own co
 ```bash
 # In a plugin or node REPL (needs ctx.sessionPersistence)
 # Inside: open(id, 'read') then handle.read(0, N)
-# Outside: open(id, 'append') — the type has no such value; jsonl treats non-read as write, later append may SessionReadOnlyError
+# Outside: open(id, 'append'). The type has no such value; jsonl treats non-read as write; later append may SessionReadOnlyError
 ```
 
 Seeing `persistence.inspect is not a function` means you are still on the 0.1.4 surface (GATE-002).

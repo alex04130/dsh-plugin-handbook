@@ -28,7 +28,7 @@
 ```bash
 # 在插件或 node REPL 里（需要 ctx.sessionPersistence）
 # 内：open(id, 'read') 然后 handle.read(0, N)
-# 外：open(id, 'append') —— 类型没有这个值；jsonl 非 read 当写，随后 append 可能 SessionReadOnlyError
+# 外：open(id, 'append')。类型没有这个值；jsonl 非 read 当写，随后 append 可能 SessionReadOnlyError
 ```
 
 看到 `persistence.inspect is not a function` = 仍走 0.1.4 旧面（GATE-002）。

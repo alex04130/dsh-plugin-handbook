@@ -2,7 +2,7 @@
 
 # Where do the gates stop you? (gate list)
 
-A gate is a runtime check on an operation (refuse with an error, or silently change behaviour — the second kind still fills "verbatim error", which may say "there is no error"). Criterion / trigger / verbatim error / bypass. Capability entries live in `./capabilities.md`.
+A gate is a runtime check on an operation (refuse with an error, or silently change behaviour; the second kind still fills "verbatim error", which may say "there is no error"). Criterion / trigger / verbatim error / bypass. Capability entries live in `./capabilities.md`.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2. Five-value status: `available` / `partially available (off by default; recipe attached)` / `sealed (gate id attached)` / `never available` / `unverified`.
 Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
@@ -131,7 +131,7 @@ subagent/descriptor <seq> uses unsupported descriptor version <n>
 ```
 
 Source: `dsh-session-format-v0-to-v1/lib/index.js:1584-1586`, and only `throw`s in the migration assertion when `version === 0`.
-- **Panel path (verified)**: `dsh-subagent/lib/index.js:2241-2247` — on observe failure the row status is `"unavailable"` or `"corrupt"`.
+- **Panel path (verified)**: `dsh-subagent/lib/index.js:2241-2247`. On observe failure the row status is `"unavailable"` or `"corrupt"`.
 - **Whether `<cross-session-tool>` throws the same sentence**: independent observation reading a v2 session → `failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`. The fold path is still silent `undefined`.
 - **Bypass**: change the descriptor version field 2→3 (when the field set falls inside v3 allowed keys). Back up the original log yourself before migrating.
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
@@ -236,7 +236,7 @@ Same path `:687`: `cannot get required service "<prop>" in inactive context`.
 - **Criterion**: some tools may only be called from the primary session; a subagent call is refused.
 - **Trigger**: a subagent calls a tool marked "primary session only (subagents refused)" (dev family, skill management, cross-session layer archive, etc.).
 - **Verbatim error**: unverified (tool description declares the refusal; specific `Error.message` not captured).
-- **Bypass**: ask the primary session to call it. There is no config switch that "lets subagents call it too" — this is a guard inside each plugin's register, not GATE-032's delegated `never`.
+- **Bypass**: ask the primary session to call it. There is no config switch that "lets subagents call it too". This is a guard inside each plugin's register, not GATE-032's delegated `never`.
 - **Implementation**: tool-description marks on each plugin (`<cross-session-tool>` / `dev_stop_dyn_plugin` / skill_*); **guard code itself unverified** (GATE-032).
 - **As of**: 2026-09-13 · DSH 0.1.5-rc.2
 - **Related**: CAP-051, CAP-060.
