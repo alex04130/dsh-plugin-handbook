@@ -2,7 +2,7 @@
 
 # Where do the gates stop you? (gate list)
 
-You hit an error and cannot match it to a rule: this file lists each gate with its criterion and verbatim error. A gate is a runtime check on an operation (refuse with an error, or silently change behaviour; the second kind still fills "verbatim error", which may say "there is no error"). Criterion / trigger / verbatim error / bypass. Capability entries live in `./capabilities.md`.
+You hit an error and cannot match it to a rule: this file lists each gate with its criterion and verbatim error. A gate is a runtime check on an operation (refuse with an error, or silently change behaviour; the second kind still fills "verbatim error", which may say "there is no error"). Criterion / trigger / verbatim error / bypass.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2. Five-value status: `available` / `partially available (off by default; recipe attached)` / `sealed (gate id attached)` / `never available` / `unverified`.
 Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
@@ -271,3 +271,8 @@ Host Cordis inspect provider "<id>" is already registered
 - **Bypass**: a different id, or a shim. No switch that "allows the same id twice".
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
 - **Related**: CAP-091, CAP-090.
+
+## See also
+
+[capabilities.md](capabilities.md) (capability entries)
+

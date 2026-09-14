@@ -15,10 +15,10 @@
 想知道 `sessionPersistence.inspect` 还能不能用：
 
 1. 在 [capabilities.md](capabilities.md) 里搜 `inspect`
-2. 看它的状态：`可用` / `部分可用（附配方）` / `已被封死（附闸号）`
+2. 看到状态是 **已被封死（GATE-002）**：`sessionPersistence.inspect` 这个方法已经没了；`sessionController.inspect` 还在，过同一道格式闸（同一篇里）
 3. 不信这个结论，照 [verify.md](verify.md) 里的命令自己跑一遍
 
-三条覆盖这套文档的全部用法。剩下的篇目都是这三步的展开。
+这套文档就这三步。其余篇目是这三步的展开。
 
 ## 从哪看起
 
@@ -30,7 +30,7 @@
 | 能力面全量 | 含「声明有但没挂上」 | [plugin-surface.md](plugin-surface.md) · [l2-host.md](l2-host.md) · [l2-client.md](l2-client.md) |
 | 判断层 | 带原文报错与触发；最可能只对某个版本成立 | [capabilities.md](capabilities.md) · [gates.md](gates.md) |
 
-另外三篇：[verify.md](verify.md)（不信结论，自己跑一遍）· [environment.md](environment.md)（目录 / 热载 / preset 语法）· [glossary.md](glossary.md)（词）。索引在 [index.md](index.md)。英文在 [en/](en/README.md)。五值读法见 capabilities 篇头。「未核实」= 这台观察没跑到，不是不能用。
+另外：[environment.md](environment.md)（目录 / 热载 / preset 语法）· [glossary.md](glossary.md)（词）。索引在 [index.md](index.md)。英文在 [en/](en/README.md)。五值读法见 capabilities 篇头。「未核实」= 这台观察没跑到，不是不能用。
 
 ## 按哪个名字敲
 

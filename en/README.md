@@ -11,10 +11,10 @@ Scale: all exports from **238** packages; **71** host services, **60** of them a
 Want to know if `sessionPersistence.inspect` still works:
 
 1. Search [capabilities.md](capabilities.md) for `inspect`
-2. Read its status: `available` / `partially available (recipe attached)` / `sealed (gate id attached)`
+2. The status is **sealed (GATE-002)**: `sessionPersistence.inspect` is gone; `sessionController.inspect` is still there and walks the same format gate (same page)
 3. If you do not trust that, run the commands in [verify.md](verify.md)
 
-Those three steps are the whole use of this cut. The other pages unpack them.
+Those three steps are this cut. The other pages unpack them.
 
 ## Where to start
 
@@ -26,7 +26,7 @@ To know whether a method still works, pick a layer:
 | Full capability surface | Includes "declared but not mounted" | [plugin-surface.md](../plugin-surface.md) · [l2-host.md](../l2-host.md) · [l2-client.md](../l2-client.md) |
 | Judgement layer | Verbatim errors and triggers; most likely to hold only for one version | [capabilities.md](capabilities.md) · [gates.md](gates.md) |
 
-Three more: [verify.md](verify.md) (you do not trust a conclusion; run it yourself) · [environment.md](environment.md) (directories / hot reload / preset syntax) · [glossary.md](glossary.md) (words). Index: [index.md](index.md). Chinese source: `../`. How to read the five values: capabilities header. "unverified" means this observation did not run it, not that it is unusable.
+Also: [environment.md](environment.md) (directories / hot reload / preset syntax) · [glossary.md](glossary.md) (words). Index: [index.md](index.md). Chinese source: `../`. How to read the five values: capabilities header. "unverified" means this observation did not run it, not that it is unusable.
 
 ## Which names to type
 
