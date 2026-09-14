@@ -2,7 +2,7 @@
 
 # Where things live, where the edges are (environment facts)
 
-Answers layout, naming, hot reload, preset syntax, deploy, presentation cost, service names and event names. Does not answer "can I still use this" — that is `./capabilities.md`.
+Answers layout, naming, hot reload, preset (session assembly) syntax, deploy, presentation cost, service names and event names. Does not answer "can I still use this" — that is `./capabilities.md`.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
 
 First mention: preset (预设). After this, `preset`.

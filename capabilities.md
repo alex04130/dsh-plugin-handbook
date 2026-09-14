@@ -1,6 +1,6 @@
 # 还能不能用？（能力档）
 
-闸的全文在 `./gates.md`。
+闸的全文在 `./gates.md`。五值怎么读：可用=能跑；部分可用=出厂关着、配方能开；封死=所有入口都过不去且没有打开开关；从未可用=从来没有过；未核实=这台观察没跑到。
 截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2。状态五值：`可用` / `部分可用（默认关，附配方）` / `已被封死（附闸号）` / `从未可用` / `未核实`。
 跨引用用 CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx，或 `./<file>.md`。
 行号对 `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<包>/lib/...`。
@@ -13,7 +13,7 @@
 | CAP-001 | 离线会话怎么读正文 | 可用 |
 | CAP-002 | 离线会话怎么追加事件 | 可用 |
 | CAP-003 | list() 现在返回什么形状 | 可用 |
-| CAP-011 | open(id, 'append') 会怎样 | 从未可用 |
+| CAP-011 | open(id, 'append') 会怎样 | 可用（附 GATE-003：静默当 write） |
 | CAP-023 | 能在全局 ctx 上 restrict 工具吗 | 已被封死（GATE-021） |
 | CAP-024 | 能 restrict 掉 run_code 吗 | 已被封死（GATE-020） |
 | CAP-020 | restrict 会摘掉子代理自己注册的工具吗 | 可用 |
@@ -101,8 +101,11 @@ try {
 
 - **是什么**：旧核 `sessionPersistence.inspect(id)` 一次返回元数据+全文。
 - **实现位置**：该方法已不在 `SessionPersistence` 抽象类上。GATE-002。另有 `sessionController` / 生成面 `ctx.remote.session.inspect(sessionId)`（`dsh-tool-cordis/lib/index.js:2288-2301`）→ `SessionInspection`（含 events）。
-- **当前状态**：**已被封死（GATE-002）**——仅 `sessionPersistence.inspect`。`sessionController.inspect` 走同一道格式闸（v2 描述符同样炸）；本观察未在本进程复测调用。
+- **当前状态**：**已被封死（GATE-002）**——`sessionPersistence.inspect` 入口。`sessionController.inspect` 仍在，走同一道格式闸（v2 描述符同样炸）。
 - **证据**：persistence 包无 `inspect`。cordis 工具面仍声明 remote.session.inspect。
+- **入口枚举**：
+  1. 服务面 `sessionPersistence.inspect`：不是 function（2026-09-14 隔离脚本）。
+  2. 远程面 `sessionController.inspect`：2026-09-14 装了 cordis 工具面的会话补跑。正控 v3 会话 `ok: true, eventCount: 11614`。反例 v2 裸 uuid → `failed to **observe** session "...": subagent/descriptor 0 uses unsupported descriptor version 2; source v0 artifact remains unchanged`。同闸另一入口（cross-session read）动词是 **read** 不是 observe——两个入口，不是同一个函数换壳。
 - **绕法**：读正文用 stat+open+read（CAP-001）。
 - **关联**：GATE-002、CAP-001。
 - **截至 2026-09-13 · DSH 0.1.5-rc.2**
@@ -110,14 +113,14 @@ try {
 
 ## CAP-011 · open(id, 'append') 会怎样
 
-- **是什么**：有人按字面猜 access 叫 `append`。
-- **实现位置**：GATE-001。
-- **当前状态**：**从未可用**（类型里就没有这个值；运行时非 `read` 当写，随后 append 再拒）。
-- **证据**：`SessionAccess` 只有两值；jsonl `:2350` 非 read 走写；`:222` 非 write 抛 `SessionReadOnlyError(this.id, "append")`。
-- **若已封死**：不是「曾经能用被关掉」，是取值域从来没有 `append`。我们 2026-09-12 之前兼容层传错过，整条「给离线会话写模式」静默死。
-- **关联**：GATE-001。
-- **截至 2026-09-13 · DSH 0.1.5-rc.2**
-- **一句话**：不要传 append。传了会先占写锁再被拒。
+- **是什么**：有人按字面猜 access 叫 `append`，或 JS 里传了类型没有的值。
+- **实现位置**：GATE-003（非法 access 静默当 write）；读句柄上的 append 拒是 GATE-001，不是这条。
+- **当前状态**：**可用**（附 GATE-003）。运行时不拒 `'append'`：当 `'write'`，append 成功。类型域从来没有这个值，所以 TS 能拦、JS 不能。
+- **证据（2026-09-14 隔离 jsonl）**：`open(id, 'append')` → `handleAccess: "write"`，`appendError: null`。jsonl `:2350` 只判断 `access === "read"`。
+- **不是**：随后再拒。被拒的是 **读句柄** 上的 append（CAP-002 反例，`SessionReadOnlyError`）。
+- **关联**：GATE-003、GATE-001、CAP-002。
+- **截至 2026-09-14 · DSH 0.1.5-rc.2**
+- **一句话**：JS 里传 append 等于拿到写权限，不会报错。
 
 ---
 

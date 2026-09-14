@@ -2,7 +2,7 @@
 
 # Can I still use this? (capability file)
 
-Full gate text is in `./gates.md`.
+Full gate text is in `./gates.md`. How to read the five values: available = it runs; partially available = factory-off, recipe turns it on; sealed = every entry fails and there is no on-switch; never available = never existed; unverified = this observation did not run it.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2. Five-value status: `available` / `partially available (off by default; recipe attached)` / `sealed (gate id attached)` / `never available` / `unverified`.
 Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
@@ -17,7 +17,7 @@ First mention: preset (预设). After this, `preset`.
 | CAP-001 | How to read an offline session body | available |
 | CAP-002 | How to append events to an offline session | available |
 | CAP-003 | What shape does list() return now | available |
-| CAP-011 | What happens on open(id, 'append') | never available |
+| CAP-011 | What happens on open(id, 'append') | available (GATE-003 attached: silent write) |
 | CAP-023 | Can I restrict tools on global ctx | sealed (GATE-021) |
 | CAP-024 | Can I restrict run_code away | sealed (GATE-020) |
 | CAP-020 | Does restrict strip tools the subagent registered itself | available |
@@ -103,8 +103,11 @@ try {
 
 - **What it is**: old core `sessionPersistence.inspect(id)` returned metadata + full text in one shot.
 - **Implementation**: that method is no longer on the `SessionPersistence` abstract class. GATE-002. Separately, `sessionController` / generated face `ctx.remote.session.inspect(sessionId)` (`dsh-tool-cordis/lib/index.js:2288-2301`) → `SessionInspection` (includes events).
-- **Status**: **sealed (GATE-002)** — only `sessionPersistence.inspect`. `sessionController.inspect` walks the same format gate (a v2 descriptor blows up the same way); this observation did not re-call it in this process.
+- **Status**: **sealed (GATE-002)** — the `sessionPersistence.inspect` entry. `sessionController.inspect` is still there and walks the same format gate (a v2 descriptor blows up the same way).
 - **Evidence**: persistence package has no `inspect`. Cordis tool surface still declares remote.session.inspect.
+- **Entry enumeration**:
+  1. Service face `sessionPersistence.inspect`: not a function (2026-09-14 isolation script).
+  2. Remote face `sessionController.inspect`: rerun 2026-09-14 on a session with the cordis tool surface. Positive control v3 `ok: true, eventCount: 11614`. Negative v2 bare uuid → `failed to **observe** session "...": subagent/descriptor 0 uses unsupported descriptor version 2`. The other entry on the same gate (cross-session read) says **read**, not observe — two entries, not one function in a different shell.
 - **Bypass**: read the body with stat+open+read (CAP-001).
 - **Related**: GATE-002, CAP-001.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -112,14 +115,14 @@ try {
 
 ## CAP-011 · What happens on open(id, 'append')
 
-- **What it is**: someone guesses the access name is `append`.
-- **Implementation**: GATE-001.
-- **Status**: **never available** (the type never had that value; runtime treats non-`read` as write, then later append refuses).
-- **Evidence**: `SessionAccess` has two values; jsonl `:2350` non-read goes write; `:222` non-write throws `SessionReadOnlyError(this.id, "append")`.
-- **If sealed**: this is not "it used to work and was turned off"; the domain never had `append`. A compat layer passed it before 2026-09-12 and the whole "write mode for an offline session" path died silently.
-- **Related**: GATE-001.
-- **As of 2026-09-13 · DSH 0.1.5-rc.2**
-- **In one sentence**: do not pass append. If you do, you take the write lock first, then get refused.
+- **What it is**: someone guesses the access name is `append`, or JS passes a value the type does not have.
+- **Implementation**: GATE-003 (illegal access silently treated as write). Refusal of append on a **read** handle is GATE-001, not this entry.
+- **Status**: **available** (GATE-003 attached). Runtime does not refuse `'append'`: treats it as `'write'`, append succeeds. The type domain never had that value, so TS can catch it and JS cannot.
+- **Evidence (2026-09-14 isolated jsonl)**: `open(id, 'append')` → `handleAccess: "write"`, `appendError: null`. jsonl `:2350` only tests `access === "read"`.
+- **Not**: later refused. What is refused is append on a **read handle** (CAP-002 negative, `SessionReadOnlyError`).
+- **Related**: GATE-003, GATE-001, CAP-002.
+- **As of 2026-09-14 · DSH 0.1.5-rc.2**
+- **In one sentence**: in JS, passing append is getting write permission, with no error.
 
 ---
 

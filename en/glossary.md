@@ -32,7 +32,7 @@ First mention of 预设 is **preset (预设)**; after that, `preset` only.
 | shipped preset | In-package `presets/` (cordis/minimal/ptc/standard); do not edit | ENV-092 |
 | user preset | `~/.dsh/.agent-presets/`; editable | ENV-092 |
 | five-value status | available / partially available (off by default; recipe attached) / sealed (gate id attached) / never available / unverified | capability-file headers |
-| gate (闸) | A check that stops an operation; most have a verbatim error (GATE-xxx) | gates.md |
+| gate (闸) | A runtime check on an operation: refuse (verbatim error) or silently change behaviour (no error, e.g. GATE-003) | gates.md |
 | sealed (封死) | Every entry failed and there is no legal on-switch; must attach a GATE id. Off-by-default + recipe is not sealed | capability-file headers |
 | capability surface (能力面) | The tool set an agent can see directly; privilege checks look at subset relation | CAP-033 |
 | preset (预设) | Session assembly unit. First mention: preset (预设); after that, `preset` | ENV-092, CAP-090 |

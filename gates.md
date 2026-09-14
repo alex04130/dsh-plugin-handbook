@@ -1,6 +1,6 @@
 # 闸在哪拦？（闸清单）
 
-判据 / 触发 / 原文报错 / 绕法。能力条目在 `./capabilities.md`。
+闸 = 运行时对某个操作的校验（拒绝会报错，或静默改行为——后一种也要写「原文报错」栏，内容可以是「没有报错」）。判据 / 触发 / 原文报错 / 绕法。能力条目在 `./capabilities.md`。
 截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2。状态五值：`可用` / `部分可用（默认关，附配方）` / `已被封死（附闸号）` / `从未可用` / `未核实`。
 跨引用用 CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx，或 `./<file>.md`。
 行号对 `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<包>/lib/...`。
@@ -10,7 +10,8 @@
 | ID | 一句话 |
 |---|---|
 | GATE-010 | 子代理描述符不是版本 3 就当没这个子代理 |
-| GATE-001 | 打开会话日志只能 read 或 write，没有 append |
+| GATE-001 | 读句柄不能 append / flush |
+| GATE-003 | open() 对非法 access 不校验，静默当 write |
 | GATE-020 | tools.restrict() 点名 run_code 直接抛 |
 | GATE-021 | tools.restrict() 必须在 agent 作用域，全局调会抛 |
 | GATE-031 | 官方委托工具默认不给模型改子代理模型的字段（能开） |
@@ -27,15 +28,32 @@
 
 # 会话与持久化
 
-## GATE-001 · 打开会话只能 read 或 write
+## GATE-001 · 读句柄不能 append / flush
 
-- **判据**：`SessionAccess = 'read' | 'write'`（`dsh-session-persistence/lib/types/handle.d.ts:12`）。
-- **触发**：`sessionPersistence.open(id, access)`。
-- **实现**：jsonl 后端 `dsh-session-persistence-jsonl/lib/index.js:2350` 非 `"read"` 当写。句柄 `append`/`flush` 再查 `this.access !== "write"` 抛 `SessionReadOnlyError`（`:222`、`:131`）。
-- **原文报错**：`SessionReadOnlyError`（操作名 `append` 或 `flush`）。
-- **绕法**：写路径传 `'write'`。传 `'append'` 会先占写租约再被拒。
-- **状态戳**：截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
-- **关联**：CAP-011、GATE-002。
+- **判据**：`SessionAccess = 'read' | 'write'`（`dsh-session-persistence/lib/types/handle.d.ts:12`）。`append`/`flush` 要求 `this.access === "write"`。
+- **触发**：`open(id, 'read')` 拿到的句柄上调 `append` 或 `flush`。
+- **实现**：jsonl `dsh-session-persistence-jsonl/lib/index.js:222`（append）、`:131`（flush）。
+- **原文报错**：
+
+```text
+session "<id>": append is not available on a read handle
+```
+
+（`SessionReadOnlyError`；操作名 `append` 或 `flush`。）
+- **绕法**：写路径 `open(id, 'write')`。非法 access 值（`'append'` 等）**不会**走这条闸，见 GATE-003。
+- **状态戳**：截至 2026-09-14 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
+- **关联**：CAP-002、GATE-003。
+
+## GATE-003 · open() 对非法 access 不校验，静默当 write
+
+- **判据**：jsonl `open()` 只判断 `access === "read"`，其余一律 `claimWrite`（`dsh-session-persistence-jsonl/lib/index.js:2350`）。没有枚举校验。
+- **触发**：`sessionPersistence.open(id, access)`，`access` 不是 `'read'`（例如 `'append'`、`foo`）。
+- **原文报错**：（没有报错。这就是这条闸。）
+- **实测（2026-09-14，隔离 jsonl root）**：`open(id, 'append')` → `openError: null`，`handleAccess: "write"`，随后 `append` 成功（`appendError: null`）。
+- **后果**：调用方传了一个类型里没有的值，运行时当写权限给。TS 能拦 `'append'`，JS 拦不住。
+- **绕法**：只传 `'read'` 或 `'write'`。不要靠运行时报错来发现拼错。
+- **状态戳**：截至 2026-09-14 · DSH 0.1.5-rc.2
+- **关联**：CAP-011、GATE-001。
 
 ## GATE-002 · sessionPersistence.inspect 已消失（sessionController.inspect 另说）
 
@@ -51,7 +69,7 @@ persistence.append is not a function
 - **仍在的另一面**：服务真名 `sessionController`。生成面 `ctx.remote.session.inspect`（`dsh-tool-cordis/lib/index.js:2288-2301`）→ `SessionInspection`（含 events）。走同一道格式闸（v2 描述符同样炸）。
 - **绕法**（persistence 面）：读 `stat`+`open('read')`+`handle.read`；写 `open('write')`+`handle.append`。
 - **状态戳**：截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
-- **关联**：CAP-010、CAP-001、CAP-002、GATE-001。
+- **关联**：CAP-010、CAP-001、CAP-002。
 
 # 工具注册与呈现
 

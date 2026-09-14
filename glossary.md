@@ -30,7 +30,7 @@
 | shipped preset | 包内 presets/（cordis/minimal/ptc/standard），别改 | ENV-092 |
 | user preset | `~/.dsh/.agent-presets/`，能改 | ENV-092 |
 | 五值状态 | 可用 / 部分可用（默认关，附配方）/ 已被封死（附闸号）/ 从未可用 / 未核实 | 能力档头 |
-| 闸 | 会拦某操作的校验点，多数有原文报错（GATE-xxx） | gates.md |
+| 闸 | 运行时对某个操作的校验：拒绝（有原文报错）或静默改变行为（没有报错，如 GATE-003） | gates.md |
 | 封死 / 已被封死 | 所有入口都失败、没有合法打开开关；必须附 GATE 号。默认关+配方不是封死 | 能力档头 |
 | 能力面 | 某个 agent 直接可见的工具集合；提权时看子集关系 | CAP-033 |
 | 预设 / preset | 会话装配单元。第一次写「预设（preset）」，后文只写 `preset` | ENV-092、CAP-090 |

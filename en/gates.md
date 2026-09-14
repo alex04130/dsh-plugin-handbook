@@ -2,7 +2,7 @@
 
 # Where do the gates stop you? (gate list)
 
-Criterion / trigger / verbatim error / bypass. Capability entries live in `./capabilities.md`.
+A gate is a runtime check on an operation (refuse with an error, or silently change behaviour — the second kind still fills "verbatim error", which may say "there is no error"). Criterion / trigger / verbatim error / bypass. Capability entries live in `./capabilities.md`.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2. Five-value status: `available` / `partially available (off by default; recipe attached)` / `sealed (gate id attached)` / `never available` / `unverified`.
 Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
@@ -12,7 +12,8 @@ Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deep
 | ID | One sentence |
 |---|---|
 | GATE-010 | A subagent descriptor that is not version 3 is treated as absent |
-| GATE-001 | Opening a session log is only `read` or `write`; there is no `append` |
+| GATE-001 | A read handle cannot append / flush |
+| GATE-003 | open() does not validate illegal access; silently treats it as write |
 | GATE-020 | `tools.restrict()` naming `run_code` throws immediately |
 | GATE-021 | `tools.restrict()` must be on agent scope; a global call throws |
 | GATE-031 | Official delegated tool does not expose child-model fields to the model by default (can be turned on) |
@@ -29,15 +30,32 @@ Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deep
 
 # Sessions and persistence
 
-## GATE-001 · Opening a session is only read or write
+## GATE-001 · A read handle cannot append / flush
 
-- **Criterion**: `SessionAccess = 'read' | 'write'` (`dsh-session-persistence/lib/types/handle.d.ts:12`).
-- **Trigger**: `sessionPersistence.open(id, access)`.
-- **Implementation**: jsonl backend `dsh-session-persistence-jsonl/lib/index.js:2350` treats anything other than `"read"` as write. Handle `append`/`flush` then checks `this.access !== "write"` and throws `SessionReadOnlyError` (`:222`, `:131`).
-- **Verbatim error**: `SessionReadOnlyError` (operation name `append` or `flush`).
-- **Bypass**: pass `'write'` on the write path. Passing `'append'` takes the write lease first, then is refused.
-- **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
-- **Related**: CAP-011, GATE-002.
+- **Criterion**: `SessionAccess = 'read' | 'write'` (`dsh-session-persistence/lib/types/handle.d.ts:12`). `append`/`flush` require `this.access === "write"`.
+- **Trigger**: `append` or `flush` on a handle from `open(id, 'read')`.
+- **Implementation**: jsonl `dsh-session-persistence-jsonl/lib/index.js:222` (append), `:131` (flush).
+- **Verbatim error**:
+
+```text
+session "<id>": append is not available on a read handle
+```
+
+(`SessionReadOnlyError`; operation name `append` or `flush`.)
+- **Bypass**: write path `open(id, 'write')`. Illegal access values (`'append'` etc.) do **not** hit this gate; see GATE-003.
+- **As of**: 2026-09-14 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
+- **Related**: CAP-002, GATE-003.
+
+## GATE-003 · open() does not validate illegal access; silently treats it as write
+
+- **Criterion**: jsonl `open()` only tests `access === "read"`; everything else `claimWrite` (`dsh-session-persistence-jsonl/lib/index.js:2350`). No enum check.
+- **Trigger**: `sessionPersistence.open(id, access)` where `access` is not `'read'` (e.g. `'append'`, `foo`).
+- **Verbatim error**: (there is no error. that is the gate.)
+- **Measured (2026-09-14, isolated jsonl root)**: `open(id, 'append')` → `openError: null`, `handleAccess: "write"`, then `append` succeeds (`appendError: null`).
+- **Effect**: the caller passed a value the type does not have; the runtime hands over write permission. TS can catch `'append'`; JS cannot.
+- **Bypass**: pass only `'read'` or `'write'`. Do not rely on a runtime error to catch a typo.
+- **As of**: 2026-09-14 · DSH 0.1.5-rc.2
+- **Related**: CAP-011, GATE-001.
 
 ## GATE-002 · sessionPersistence.inspect is gone (sessionController.inspect is a different face)
 
