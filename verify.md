@@ -25,32 +25,22 @@
 
 ### 会话句柄
 
-```bash
-# 在插件或 node REPL 里（需要 ctx.sessionPersistence）
-# 内：open(id, 'read') 然后 handle.read(0, N)
-# 外：open(id, 'append')。类型没有这个值；jsonl 非 read 当写，随后 append 可能 SessionReadOnlyError
-```
+这一节待补。隔离 jsonl 上 `open(id, 'append')` 的可跑例子在 [tutorials/07-silent-failures.md](tutorials/07-silent-failures.md)。
 
 看到 `persistence.inspect is not a function` = 仍走 0.1.4 旧面（GATE-002）。
 
 ### 描述符版本
 
-```bash
-# 正控：一条 data.version === 2 的 subagent/descriptor 会话
-# 读路径（持久化/查询）可能 throw：
-#   failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2
-# foldSubagentDescriptor 路径：version !== 3 → undefined（dsh-subagent/lib/index.js:1359）
-# 没有 v2 样本就不要宣布「读路径的行为」
-```
+这一节待补。正控需要一条 `data.version === 2` 的 `subagent/descriptor` 会话。读路径可能 throw `unsupported descriptor version 2`；fold 路径 `version !== 3` 返回 undefined。没有 v2 样本就不要宣布读路径的行为。
 
 ### restrict
 
 ```js
-// 外：全局 ctx
+// 非法值：全局 ctx
 ctx.tools.restrict({ deny: ['bash'] })
 // 期望：tools.restrict() requires a scoped context (agent.ctx): ...
 
-// 外：点名运输层
+// 非法值：点名运输层
 agent.ctx.tools.restrict({ deny: ['run_code'] })
 // 期望：tools.restrict() cannot name reserved PTC mode presentation transport "run_code"...
 ```

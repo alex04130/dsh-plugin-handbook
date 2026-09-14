@@ -10,7 +10,7 @@
 | **声明面（检视目录）** | 活进程 `Service.listService` / `Event.listEvents` / `Builtin.listBuiltins` | service **71**、event **62**、builtin **7** |
 | **运行面** | 宿主层动态插件逐个 `ctx.get(name)` | service **60** 挂 / **11** 未挂。探针作用域 = 宿主层插件 ctx；只在别的 isolate 可见的，对插件作者等于拿不到。事件与 builtin 没有「挂没挂」，不标运行面 |
 
-本会话（PTC 会话）**没有** `cordis_inspect_query`，运行面数字不在这里复测。工具面 `Tool.listTools` **跟 preset 走**，某次观察 115，别写死。
+运行面数字随 preset 变。工具面 `Tool.listTools` 跟 preset 走，不要写死成一个数。
 
 已有判断层（CAP/GATE/ENV）不重写。waterfall 必须调用 `next()`。
 

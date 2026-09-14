@@ -11,7 +11,6 @@
 | PTC | 呈现模式：模型只能直接调 run_code，其它进 SDK | ENV-021、GATE-022 |
 | native | 呈现模式：每个工具一条 function-call | ENV-021 |
 | run_code | PTC 运输层保留名，不能注册也不能 restrict | GATE-020、GATE-022、CAP-025 |
-| tool_router | 元工具：list/describe/call 其它工具 | 一次工具面收窄实测；本会话只有 run_code 能直调 |
 | SessionAccess | open() 的第二参，只有 read / write | GATE-001 |
 | inspect() | 0.1.4 一次拿 meta+events 的方法，0.1.5 没了 | GATE-002、CAP-010 |
 | stat() | 0.1.5 只看 header/revision，不带 events | CAP-001 |

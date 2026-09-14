@@ -1,8 +1,8 @@
 # Full DSH notes
 
-Package-level reading of DeepSeek Harness, written up as this full cut for people writing DSH plugins. As of about 0.1.5-rc.2.
+Package-level notes on DeepSeek Harness for people writing plugins. As of about 0.1.5-rc.2.
 
-Why it exists: an agent writing a DSH plugin often finds that an API exists, does not walk the call chain, and then spends turns pulling code and probing the runtime that a written chain would have saved.
+An agent writing a plugin often finds that an API exists and stops there. The call chain is what actually decides whether the call works.
 
 Scale: all exports from **238** packages; **71** host services, **60** of them actually mounted this run (**11** not); events **62** · builtins **7**; client slots **61** · client services **8** · theme tokens **13**.
 
@@ -22,11 +22,11 @@ To know whether a method still works, pick a layer:
 
 | Layer | How far you can trust it | Where |
 |---|---|---|
-| Package API tables | All 238 packages; no pure-JS exports (parses `.d.ts` only) | [l2-packages.md](../l2-packages.md) · `docs/harness/api-surface.md` |
+| Package API tables | All 238 packages; no pure-JS exports (parses `.d.ts` only) | [l2-packages.md](../l2-packages.md) · [api/](../api/README.md) |
 | Full capability surface | Includes "declared but not mounted" | [plugin-surface.md](../plugin-surface.md) · [l2-host.md](../l2-host.md) · [l2-client.md](../l2-client.md) |
 | Judgement layer | Verbatim errors and triggers; most likely to hold only for one version | [capabilities.md](capabilities.md) · [gates.md](gates.md) |
 
-Also: [environment.md](environment.md) (directories / hot reload / preset syntax) · [glossary.md](glossary.md) (words). Index: [index.md](index.md). Chinese source: `../`. How to read the five values: capabilities header. "unverified" means this observation did not run it, not that it is unusable.
+Also: [environment.md](environment.md) (directories / hot reload / preset syntax) · [glossary.md](glossary.md) (words). Index: [index.md](index.md). Chinese source: `../`. How to read the five values: capabilities header. "unverified" means not probed in this run, not that it is unusable.
 
 ## Which names to type
 

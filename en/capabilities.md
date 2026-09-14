@@ -10,13 +10,11 @@ The type file still lists this method, then the call blows up: this file says pe
 | partially available (off by default; recipe attached) | factory-off; follow the recipe and it works |
 | sealed (gate id attached) | every entry fails, and there is no on-switch |
 | never available | never in the value domain; not something that was turned off |
-| unverified | this observation did not run it; not a conclusion |
+| unverified | not probed in this run; not a conclusion |
 
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
-Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
+Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
-
-First mention: preset (预设). After this, `preset`.
 
 ## Index
 
@@ -91,7 +89,7 @@ try {
 - **Status**: **available** (given you got the write lease).
 - **Evidence**: abstract-class comments say service-level `append` is gone (`index.d.ts:86-87` says append lives on the **handle**, best-effort; flush is the durability barrier). Old `persistence.append(id, events)` is `is not a function`.
 - **Limits**: a live write owner yields `SessionAlreadyOwnedError`.
-- **Merge note (A CAP-001)**: A folded read/append into "partially available" because old service-level append/inspect vanished. Read is CAP-001 (available); append is this entry, still gated by the write lease and `SessionAccess='write'`. Those limits stay here; the whole entry is not walked back to partially available.
+- **Limits**: read is CAP-001 (available). Append needs a write lease and `access="write"`. Old service-level append/inspect is gone; that does not downgrade this whole entry.
 - **We depend on this**: <compat-plugin> writes `agent-preset/selected`, <compat-plugin> writes `request/header`, both via `appendCompat()`.
 - **Related**: GATE-001, GATE-002.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -126,9 +124,8 @@ try {
 
 - **What it is**: someone guesses the access name is `append`, or JS passes a value the type does not have.
 - **Implementation**: GATE-003 (illegal access silently treated as write). Refusal of append on a **read** handle is GATE-001, not this entry.
-- **Status**: **available** (GATE-003 attached). Runtime does not refuse `'append'`: treats it as `'write'`, append succeeds. The type domain never had that value, so TS can catch it and JS cannot.
+- **Status**: **available** (GATE-003 attached). Runtime does not refuse `'append'`: treats it as `'write'`, append succeeds. The type domain never had that value, so TS can catch it and JS cannot. Do not mix this with GATE-001: that one refuses append on a read handle; this one is unvalidated input.
 - **Evidence (2026-09-14 isolated jsonl)**: `open(id, 'append')` → `handleAccess: "write"`, `appendError: null`. jsonl `:2350` only tests `access === "read"`.
-- **Not**: later refused. What is refused is append on a **read handle** (CAP-002 negative, `SessionReadOnlyError`).
 - **Related**: GATE-003, GATE-001, CAP-002.
 - **As of 2026-09-14 · DSH 0.1.5-rc.2**
 - **In one sentence**: in JS, passing append is getting write permission, with no error.
@@ -146,12 +143,12 @@ try {
 - **Related**: CAP-023.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
 - **In one sentence**: it does not strip own-layer tools; it only filters what was inherited from a parent.
-- **restrict family note (A CAP-003)**: using `tools.restrict` as a "progressive disclosure primitive" (stripped tools still reachable via `tool_router`) is **falsified**: stripped names vanish on that agent, and router forward is also `unknown tool` (one measured tool-surface narrowing, `<internal-notes>`). The right path is narrow-at-register: preset lines, or scoped `agent.ctx.tools.register` (A CAP-032 / this entry's own-layer exemption). restrict itself is not fully dead: GATE-021 blocks global, GATE-020 blocks naming run_code, this entry says own-layer tools are not filtered.
+- **restrict is not progressive disclosure**: stripped names vanish on that agent; `tool_router` also returns `unknown tool` (one measured tool-surface narrowing). Narrow at register time: preset lines, or scoped `agent.ctx.tools.register` (CAP-032 / this entry's own-layer exemption). GATE-021 blocks global; GATE-020 blocks naming run_code.
 
 ## CAP-021 · Can one session call another session's tools
 
 - **What it is**: `tool_router` meta-tool; `action=call` forwards to the inner tool; approval follows the inner tool.
-- **Implementation**: `tool_router` on this session's tool surface (list / describe / call). A recorded it as community-plugin / dynplugins/trouter or static; **registering package path was not re-checked at merge**.
+- **Implementation**: `tool_router` (list / describe / call). Registering package path was not re-checked at merge.
 - **Status**: **available**.
 - **Evidence**: independent observation: `tool_router({action:'call', tool:'probe_agent_id'})` returned a routed result. On a session where only `run_code` is directly callable (PTC session), other tools (including tool_router) go through `await tools.tool_router(...)` inside run_code.
 - **Limits**: names stripped by `tools.restrict` are also `unknown tool` via the router (CAP-020 family note / one measured tool-surface narrowing).
@@ -360,7 +357,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
 - **In one sentence**: same team can send; cross-project goes pending; id must have the session- prefix.
 
-| Question | Why it is not nailed |
+| Question | Why it is not settled |
 |---|---|
 | Does `<cross-session-tool>` throw that `unsupported descriptor version 2` sentence when reading a v2 descriptor | Source only throws that in the v0→v1 migration package; fold path returns undefined |
 | Current value of settings page `subagent-model-selection.enabled` | Settings store not read |
@@ -368,7 +365,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 | Whether `<spawn-tool>` passes maxDepth to start | Wrapper source does not pass that field |
 | Exact Error.message on global persona name clash | Only saw "fails loud" |
 | Whether `tools.guard` is actually registered by a local plugin | Call sites not fully grepped |
-| Field table of `agent/session-start` payload | Types file not fully walked |
+| Field table of `agent/session-start` payload | Types file not fully checked |
 
 ## CAP-055 · Can I get systemPrompt without inject
 
@@ -430,7 +427,7 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 - **Implementation**: on delegation only the parent's **explicit** sandbox override is written into the child log (`child-agent.js:184-201`), "never deployment defaults or one-shot grants". Widening needs approval; child policy is never → refuse. Sandbox-mode vocabulary `dsh-sandbox/lib/types/index.d.ts:19`.
 - **Status**: **sealed (GATE-032)**. Cannot rise from inside the child session. Approving at spawn on the parent is another path, not turning on internal widening for the child.
 - **Evidence**: GATE-032 + capture comments. Our wrapper's sandbox escalation is `collectSandboxEscalations` on the **parent**; a human approve writes it into child create; the child does not raise itself.
-- **Merge note (A CAP-031)**: sandbox granularity (read-only / workspace-write / danger-full-access plus approval) **source coordinates not walked one by one**. This entry only nails "widen from inside the child = sealed", not the whole sandbox picture.
+- **Scope**: this entry only settles "widen from inside the child = sealed". Sandbox-mode plus approval source coordinates were not checked one by one.
 - **Related**: GATE-032, CAP-033.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
 - **In one sentence**: the child cannot raise itself. Want wider: approve on the parent at spawn.
@@ -465,8 +462,8 @@ tool name "run_code" is reserved for the PTC mode presentation transport and can
 - **What it is**: `tools.guard(fn)`; returning a string refuses this call.
 - **Implementation**: `dsh-tools/lib/index.js:2806-2820`. Global guard or scoped guard on `agent.ctx`. Any matching guard may refuse; no guard can force-allow what another already refused.
 - **Status**: **available**.
-- **Evidence**: comments as above. We did not find a `tools.guard(` call in our plugins this time; **whether we use it unverified** (grep range can be widened).
-- **Merge note (A CAP-041)**: full hook set unverified. A also listed `agent/pre-step` (`runtime-types.d.ts:303`, can refuse a step / rewrite messages); signature is in the types file, behaviour not measured. This entry only proves the `tools.guard` cut.
+- **Evidence**: comments as above. No `tools.guard(` call found in local plugins this run; **whether it is used remains unverified**.
+- **Scope**: this entry only proves `tools.guard`. Full hook set unverified. `agent/pre-step` (`runtime-types.d.ts:303`, can refuse a step / rewrite messages) is in the types file; behaviour not measured.
 - **Related**: CAP-023, CAP-080.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
 - **In one sentence**: can stop; a stop cannot be flipped to allow by another guard.
@@ -526,7 +523,7 @@ Disk generation 0 is still named `session.jsonl.zstd` (ENV-003); that is the phy
 
 - **What it is**: look at a session by id without going through `sessionPersistence` and without activating an Agent.
 - **Implementation**: `dsh-tool-cordis/lib/index.js:2288-2301` generated `ctx.remote.session.inspect(sessionId, signal?)` → `Promise<SessionInspection>`. `SessionInspection` includes `events` (:7391).
-- **Status**: **unverified** (this observation did not call it). Real service name **`sessionController`** (`ctx.get('sessionController')` / generated `ctx.remote.session`). Independent observation: same format gate (a v2 descriptor blows up the same way).
+- **Status**: **unverified** (not probed in this run). Real service name **`sessionController`** (`ctx.get('sessionController')` / generated `ctx.remote.session`). Independent observation: same format gate (a v2 descriptor blows up the same way).
 - **Evidence**: in-package declaration as above. Feedback channel `dsh-message-feedback` `'feedback/committed'(inspection: SessionInspection)` also cites this type.
 - **Related**: CAP-010, GATE-002, CAP-001.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**
@@ -536,7 +533,7 @@ Disk generation 0 is still named `session.jsonl.zstd` (ENV-003); that is the phy
 
 - **What it is**: create a new agent in-process, or resume an agent from an on-disk session. Subagent spawn eventually walks this, not only `subagents.startContinuable`.
 - **Implementation**: `dsh-agent/lib/types/index.d.ts:279` `create(options): Promise<AgentHandle>`; `:287` `resume(options): Promise<AgentHandle>`. create builds a session; resume requires persistence configured.
-- **Status**: **available** (types + spawn path depends on it; this turn did not probe `agents.create` alone).
+- **Status**: **available** (types + spawn path depends on it; the 2026-09-13 inventory did not probe `agents.create` alone).
 - **Evidence**: comments "Rejects if no factory is registered"; resume "factory rejects if session persistence is not configured".
 - **Related**: CAP-030, CAP-031, CAP-080.
 - **As of 2026-09-13 · DSH 0.1.5-rc.2**

@@ -38,7 +38,7 @@ cordis_inspect_query({ platform:'client', provider:'Theme',  method:'listTokens'
 | CSV 声明面 Context 键 | 12 | 12 | 否 |
 | 启发式「32 条声明 slot」 | — | 0 | **不单列表。** 22 条真 slot 已在 CSL「声明也见到」；其余不是 slot，见文首与 CSV。 |
 
-表体合计 **61+8+13+12 = 94**。不是 114：114 = 61+8+13+32，把已拆掉的启发式 32 又加回去了。
+表体合计 **61+8+13+12 = 94**。
 
 <!-- doccheck:no-entries -->
 

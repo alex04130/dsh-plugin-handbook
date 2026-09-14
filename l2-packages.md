@@ -1,6 +1,6 @@
 # L2 包索引
 
-截至 2026-09-13 · DSH 0.1.5-rc.2。不知道某个机制在哪个包、或方法级名单散落：先对这 238 个包。安装树 **238** 个包（与 api-surface 238 一致）。方法级名单：`docs/harness/api-surface.md`（脚本生成）。
+截至 2026-09-13 · DSH 0.1.5-rc.2。安装树 **238** 个包。方法级名单一包一页，见 [api/](api/README.md)。
 
 判断层已覆盖的机制以 CAP/GATE 为准。v2 描述符：活树 **0 个残留 + 1 个刻意保留的对照探针**（6 工作区 186 个日志文件重扫命中 1，即刻意保留的对照）。
 
@@ -8,243 +8,243 @@
 
 | ID | 包 | 细节 | 状态 |
 |---|---|---|---|
-| PKG-001 | `cordis` | api-surface.md 该包节 | 未核实 |
-| PKG-002 | `cordis-plugin-group` | api-surface.md 该包节 | 未核实 |
-| PKG-003 | `cordis-plugin-hmr` | api-surface.md 该包节 | 未核实 |
-| PKG-004 | `cordis-plugin-include` | api-surface.md 该包节 | 未核实 |
-| PKG-005 | `cordis-plugin-loader` | api-surface.md 该包节 | 未核实 |
-| PKG-006 | `cordis-plugin-timer` | api-surface.md 该包节 | 未核实 |
-| PKG-007 | `cosmokit` | api-surface.md 该包节 | 未核实 |
-| PKG-008 | `dsh-acp` | api-surface.md 该包节 | 未核实 |
-| PKG-009 | `dsh-acp-app` | api-surface.md 该包节 | 未核实 |
-| PKG-010 | `dsh-agent` | api-surface.md 该包节 | 未核实 |
-| PKG-011 | `dsh-agent-default-model` | api-surface.md 该包节 | 未核实 |
-| PKG-012 | `dsh-agent-instructions` | api-surface.md 该包节 | 未核实 |
-| PKG-013 | `dsh-agent-loop` | api-surface.md 该包节 | 未核实 |
-| PKG-014 | `dsh-agent-presets` | api-surface.md 该包节 | 未核实 |
-| PKG-015 | `dsh-agent-tool-presentation` | api-surface.md 该包节 | 未核实 |
-| PKG-016 | `dsh-anonymous-user-id` | api-surface.md 该包节 | 未核实 |
-| PKG-017 | `dsh-api-gateway` | api-surface.md 该包节 | 未核实 |
-| PKG-018 | `dsh-api-remotes` | api-surface.md 该包节 | 未核实 |
-| PKG-019 | `dsh-api-session-controller` | api-surface.md 该包节 | 未核实 |
-| PKG-020 | `dsh-api-settings-controller` | api-surface.md 该包节 | 未核实 |
-| PKG-021 | `dsh-api-workspace-controller` | api-surface.md 该包节 | 未核实 |
-| PKG-022 | `dsh-api-workspace-files` | api-surface.md 该包节 | 未核实 |
-| PKG-023 | `dsh-app-boot` | api-surface.md 该包节 | 未核实 |
-| PKG-024 | `dsh-atomic-write` | api-surface.md 该包节 | 未核实 |
-| PKG-025 | `dsh-attachment` | api-surface.md 该包节 | 未核实 |
-| PKG-026 | `dsh-attachment-local` | api-surface.md 该包节 | 未核实 |
-| PKG-027 | `dsh-authorization` | api-surface.md 该包节 | 未核实 |
-| PKG-028 | `dsh-base` | api-surface.md 该包节 | 未核实 |
-| PKG-029 | `dsh-bash-local` | api-surface.md 该包节 | 未核实 |
-| PKG-030 | `dsh-bash-sandbox` | api-surface.md 该包节 | 未核实 |
-| PKG-031 | `dsh-brand` | api-surface.md 该包节 | 未核实 |
-| PKG-032 | `dsh-chunked-list` | api-surface.md 该包节 | 未核实 |
-| PKG-033 | `dsh-client-connection` | api-surface.md 该包节 | 未核实 |
-| PKG-034 | `dsh-client-file-upload` | api-surface.md 该包节 | 未核实 |
-| PKG-035 | `dsh-client-hmr` | api-surface.md 该包节 | 未核实 |
-| PKG-036 | `dsh-client-locale` | api-surface.md 该包节 | 未核实 |
-| PKG-037 | `dsh-client-modules` | api-surface.md 该包节 | 未核实 |
-| PKG-038 | `dsh-client-resources` | api-surface.md 该包节 | 未核实 |
-| PKG-039 | `dsh-client-ui-agent-preset` | api-surface.md 该包节 | 未核实 |
-| PKG-040 | `dsh-client-ui-approval` | api-surface.md 该包节 | 未核实 |
-| PKG-041 | `dsh-client-ui-attachment` | api-surface.md 该包节 | 未核实 |
-| PKG-042 | `dsh-client-ui-brand-official` | api-surface.md 该包节 | 未核实 |
-| PKG-043 | `dsh-client-ui-chat` | api-surface.md 该包节 | 未核实 |
-| PKG-044 | `dsh-client-ui-commands` | api-surface.md 该包节 | 未核实 |
-| PKG-045 | `dsh-client-ui-conversation` | api-surface.md 该包节 | 未核实 |
-| PKG-046 | `dsh-client-ui-cordis` | api-surface.md 该包节 | 未核实 |
-| PKG-047 | `dsh-client-ui-deliverables` | api-surface.md 该包节 | 未核实 |
-| PKG-048 | `dsh-client-ui-directory-picker-browse` | api-surface.md 该包节 | 未核实 |
-| PKG-049 | `dsh-client-ui-directory-picker-native` | api-surface.md 该包节 | 未核实 |
-| PKG-050 | `dsh-client-ui-goal` | api-surface.md 该包节 | 未核实 |
-| PKG-051 | `dsh-client-ui-input-trigger` | api-surface.md 该包节 | 未核实 |
-| PKG-052 | `dsh-client-ui-jobs` | api-surface.md 该包节 | 未核实 |
-| PKG-053 | `dsh-client-ui-layout` | api-surface.md 该包节 | 未核实 |
-| PKG-054 | `dsh-client-ui-message-feedback` | api-surface.md 该包节 | 未核实 |
-| PKG-055 | `dsh-client-ui-model-selection` | api-surface.md 该包节 | 未核实 |
-| PKG-056 | `dsh-client-ui-open-in-app` | api-surface.md 该包节 | 未核实 |
-| PKG-057 | `dsh-client-ui-permission-presets` | api-surface.md 该包节 | 未核实 |
-| PKG-058 | `dsh-client-ui-plan` | api-surface.md 该包节 | 未核实 |
-| PKG-059 | `dsh-client-ui-reference` | api-surface.md 该包节 | 未核实 |
-| PKG-060 | `dsh-client-ui-renderer` | api-surface.md 该包节 | 未核实 |
-| PKG-061 | `dsh-client-ui-schedule` | api-surface.md 该包节 | 未核实 |
-| PKG-062 | `dsh-client-ui-session` | api-surface.md 该包节 | 未核实 |
-| PKG-063 | `dsh-client-ui-settings` | api-surface.md 该包节 | 未核实 |
-| PKG-064 | `dsh-client-ui-settings-general` | api-surface.md 该包节 | 未核实 |
-| PKG-065 | `dsh-client-ui-settings-models` | api-surface.md 该包节 | 未核实 |
-| PKG-066 | `dsh-client-ui-settings-plugin-inventory` | api-surface.md 该包节 | 未核实 |
-| PKG-067 | `dsh-client-ui-settings-plugins` | api-surface.md 该包节 | 未核实 |
-| PKG-068 | `dsh-client-ui-sidebar` | api-surface.md 该包节 | 未核实 |
-| PKG-069 | `dsh-client-ui-sidebar-documentpreview` | api-surface.md 该包节 | 未核实 |
-| PKG-070 | `dsh-client-ui-sidebar-files` | api-surface.md 该包节 | 未核实 |
-| PKG-071 | `dsh-client-ui-sidebar-right` | api-surface.md 该包节 | 未核实 |
-| PKG-072 | `dsh-client-ui-skill` | api-surface.md 该包节 | 未核实 |
-| PKG-073 | `dsh-client-ui-subagent` | api-surface.md 该包节 | 未核实 |
-| PKG-074 | `dsh-client-ui-theme` | api-surface.md 该包节 | 未核实 |
-| PKG-075 | `dsh-client-ui-tool` | api-surface.md 该包节 | 未核实 |
-| PKG-076 | `dsh-client-ui-trajectory` | api-surface.md 该包节 | 未核实 |
-| PKG-077 | `dsh-client-ui-user-questions` | api-surface.md 该包节 | 未核实 |
-| PKG-078 | `dsh-client-ui-workflow-run` | api-surface.md 该包节 | 未核实 |
-| PKG-079 | `dsh-client-ui-workspace` | api-surface.md 该包节 | 未核实 |
-| PKG-080 | `dsh-cmdline` | api-surface.md 该包节 | 未核实 |
-| PKG-081 | `dsh-code-runtime` | api-surface.md 该包节 | 未核实 |
-| PKG-082 | `dsh-code-runtime-worker-thread` | api-surface.md 该包节 | 未核实 |
-| PKG-083 | `dsh-command-compact` | api-surface.md 该包节 | 未核实 |
-| PKG-084 | `dsh-command-feedback` | api-surface.md 该包节 | 未核实 |
-| PKG-085 | `dsh-command-goal` | api-surface.md 该包节 | 未核实 |
-| PKG-086 | `dsh-commands` | api-surface.md 该包节 | 未核实 |
-| PKG-087 | `dsh-compaction` | api-surface.md 该包节 | 未核实 |
-| PKG-088 | `dsh-compaction-basic` | api-surface.md 该包节 | 未核实 |
-| PKG-089 | `dsh-compaction-tool-result-pruner` | api-surface.md 该包节 | 未核实 |
-| PKG-090 | `dsh-cordis-client-runner` | api-surface.md 该包节 | 未核实 |
-| PKG-091 | `dsh-cordis-host-runner` | api-surface.md 该包节 | 未核实 |
-| PKG-092 | `dsh-credentials` | api-surface.md 该包节 | 未核实 |
-| PKG-093 | `dsh-credentials-local` | api-surface.md 该包节 | 未核实 |
-| PKG-094 | `dsh-deepseek-llm-api-extensions` | api-surface.md 该包节 | 未核实 |
-| PKG-095 | `dsh-deque` | api-surface.md 该包节 | 未核实 |
-| PKG-096 | `dsh-file-reference` | api-surface.md 该包节 | 未核实 |
-| PKG-097 | `dsh-file-reference-local` | api-surface.md 该包节 | 未核实 |
-| PKG-098 | `dsh-fs` | api-surface.md 该包节 | 未核实 |
-| PKG-099 | `dsh-fs-local` | api-surface.md 该包节 | 未核实 |
-| PKG-100 | `dsh-fs-observation-policy` | api-surface.md 该包节 | 未核实 |
-| PKG-101 | `dsh-fs-sandbox` | api-surface.md 该包节 | 未核实 |
-| PKG-102 | `dsh-goal` | api-surface.md 该包节 | 未核实 |
-| PKG-103 | `dsh-goal-round-driver` | api-surface.md 该包节 | 未核实 |
-| PKG-104 | `dsh-headless` | api-surface.md 该包节 | 未核实 |
-| PKG-105 | `dsh-home-paths` | api-surface.md 该包节 | 未核实 |
-| PKG-106 | `dsh-hook-protocol` | api-surface.md 该包节 | 未核实 |
-| PKG-107 | `dsh-hooks-claude-code` | api-surface.md 该包节 | 未核实 |
-| PKG-108 | `dsh-hooks-codex` | api-surface.md 该包节 | 未核实 |
-| PKG-109 | `dsh-host-directory-picker` | api-surface.md 该包节 | 未核实 |
-| PKG-110 | `dsh-host-directory-picker-auto` | api-surface.md 该包节 | 未核实 |
-| PKG-111 | `dsh-host-directory-picker-browse` | api-surface.md 该包节 | 未核实 |
-| PKG-112 | `dsh-host-directory-picker-native` | api-surface.md 该包节 | 未核实 |
-| PKG-113 | `dsh-host-frontend-static` | api-surface.md 该包节 | 未核实 |
-| PKG-114 | `dsh-host-open-in-app` | api-surface.md 该包节 | 未核实 |
-| PKG-115 | `dsh-host-plugin-inventory` | api-surface.md 该包节 | 未核实 |
-| PKG-116 | `dsh-host-webserver` | api-surface.md 该包节 | 未核实 |
-| PKG-117 | `dsh-http-proxy` | api-surface.md 该包节 | 未核实 |
-| PKG-118 | `dsh-invariants` | api-surface.md 该包节 | 未核实 |
-| PKG-119 | `dsh-jobs` | api-surface.md 该包节 | 未核实 |
-| PKG-120 | `dsh-jobs-local` | api-surface.md 该包节 | 未核实 |
-| PKG-121 | `dsh-launch-environment` | api-surface.md 该包节 | 未核实 |
-| PKG-122 | `dsh-llm` | api-surface.md 该包节 | 未核实 |
-| PKG-123 | `dsh-llm-deepseek` | api-surface.md 该包节 | 未核实 |
-| PKG-124 | `dsh-llm-pi-ai` | api-surface.md 该包节 | 未核实 |
-| PKG-125 | `dsh-llm-retry` | api-surface.md 该包节 | 未核实 |
-| PKG-126 | `dsh-mcp-client` | api-surface.md 该包节 | 未核实 |
-| PKG-127 | `dsh-message-feedback` | api-surface.md 该包节 | 未核实 |
-| PKG-128 | `dsh-native-command` | api-surface.md 该包节 | 未核实 |
-| PKG-129 | `dsh-output-retention` | api-surface.md 该包节 | 未核实 |
-| PKG-130 | `dsh-package-manifest` | api-surface.md 该包节 | 未核实 |
-| PKG-131 | `dsh-permission-presets` | api-surface.md 该包节 | 未核实 |
-| PKG-132 | `dsh-persona` | api-surface.md 该包节 | 未核实 |
-| PKG-133 | `dsh-plan-mode` | api-surface.md 该包节 | 未核实 |
-| PKG-134 | `dsh-plugin-package-inventory-deepseek` | api-surface.md 该包节 | 未核实 |
-| PKG-135 | `dsh-pwsh-local` | api-surface.md 该包节 | 未核实 |
-| PKG-136 | `dsh-pwsh-sandbox` | api-surface.md 该包节 | 未核实 |
-| PKG-137 | `dsh-repeat-tool-reminder` | api-surface.md 该包节 | 未核实 |
-| PKG-138 | `dsh-sandbox` | api-surface.md 该包节 | 未核实 |
-| PKG-139 | `dsh-sandbox-local` | api-surface.md 该包节 | 未核实 |
-| PKG-140 | `dsh-sandbox-policy` | api-surface.md 该包节 | 未核实 |
-| PKG-141 | `dsh-sandbox-windows-acl` | api-surface.md 该包节 | 未核实 |
-| PKG-142 | `dsh-schedule` | api-surface.md 该包节 | 未核实 |
-| PKG-143 | `dsh-scope` | api-surface.md 该包节 | 未核实 |
-| PKG-144 | `dsh-sdk-app` | api-surface.md 该包节 | 未核实 |
-| PKG-145 | `dsh-sdk-jsonrpc-server` | api-surface.md 该包节 | 未核实 |
-| PKG-146 | `dsh-sdk-minimal` | api-surface.md 该包节 | 未核实 |
-| PKG-147 | `dsh-sdk-protocol` | api-surface.md 该包节 | 未核实 |
-| PKG-148 | `dsh-session` | api-surface.md 该包节 | 未核实 |
-| PKG-149 | `dsh-session-checkpoint-policy` | api-surface.md 该包节 | 未核实 |
-| PKG-150 | `dsh-session-format` | api-surface.md 该包节 | 未核实 |
-| PKG-151 | `dsh-session-format-catalog` | api-surface.md 该包节 | 未核实 |
-| PKG-152 | `dsh-session-format-v0-to-v1` | api-surface.md 该包节 | 未核实 |
-| PKG-153 | `dsh-session-format-v1-to-v2` | api-surface.md 该包节 | 未核实 |
-| PKG-154 | `dsh-session-format-v2-to-v3` | api-surface.md 该包节 | 未核实 |
-| PKG-155 | `dsh-session-log-deepseek` | api-surface.md 该包节 | 未核实 |
-| PKG-156 | `dsh-session-log-export` | api-surface.md 该包节 | 未核实 |
-| PKG-157 | `dsh-session-persistence` | api-surface.md 该包节 | 未核实 |
-| PKG-158 | `dsh-session-persistence-jsonl` | api-surface.md 该包节 | 未核实 |
-| PKG-159 | `dsh-session-projection` | api-surface.md 该包节 | 未核实 |
-| PKG-160 | `dsh-session-projection-cache` | api-surface.md 该包节 | 未核实 |
-| PKG-161 | `dsh-session-query` | api-surface.md 该包节 | 未核实 |
-| PKG-162 | `dsh-session-query-sqlite` | api-surface.md 该包节 | 未核实 |
-| PKG-163 | `dsh-session-reference` | api-surface.md 该包节 | 未核实 |
-| PKG-164 | `dsh-session-stats` | api-surface.md 该包节 | 未核实 |
-| PKG-165 | `dsh-session-telemetry` | api-surface.md 该包节 | 未核实 |
-| PKG-166 | `dsh-session-telemetry-otel` | api-surface.md 该包节 | 未核实 |
-| PKG-167 | `dsh-session-title` | api-surface.md 该包节 | 未核实 |
-| PKG-168 | `dsh-session-title-first-prompt-llm` | api-surface.md 该包节 | 未核实 |
-| PKG-169 | `dsh-session-title-llm` | api-surface.md 该包节 | 未核实 |
-| PKG-170 | `dsh-session-turn-outline` | api-surface.md 该包节 | 未核实 |
-| PKG-171 | `dsh-settings` | api-surface.md 该包节 | 未核实 |
-| PKG-172 | `dsh-settings-file` | api-surface.md 该包节 | 未核实 |
-| PKG-173 | `dsh-shell` | api-surface.md 该包节 | 未核实 |
-| PKG-174 | `dsh-shell-env` | api-surface.md 该包节 | 未核实 |
-| PKG-175 | `dsh-skill` | api-surface.md 该包节 | 未核实 |
-| PKG-176 | `dsh-skill-badge` | api-surface.md 该包节 | 未核实 |
-| PKG-177 | `dsh-skill-filesystem` | api-surface.md 该包节 | 未核实 |
-| PKG-178 | `dsh-spill` | api-surface.md 该包节 | 未核实 |
-| PKG-179 | `dsh-spill-local` | api-surface.md 该包节 | 未核实 |
-| PKG-180 | `dsh-spill-policy` | api-surface.md 该包节 | 未核实 |
-| PKG-181 | `dsh-storage` | api-surface.md 该包节 | 未核实 |
-| PKG-182 | `dsh-storage-domain` | api-surface.md 该包节 | 未核实 |
-| PKG-183 | `dsh-storage-json` | api-surface.md 该包节 | 未核实 |
-| PKG-184 | `dsh-subagent` | api-surface.md 该包节 | 未核实 |
-| PKG-185 | `dsh-subagent-fork-in-process` | api-surface.md 该包节 | 未核实 |
-| PKG-186 | `dsh-subagent-in-process-driver` | api-surface.md 该包节 | 未核实 |
-| PKG-187 | `dsh-subagent-spawn-in-process` | api-surface.md 该包节 | 未核实 |
-| PKG-188 | `dsh-subprocess` | api-surface.md 该包节 | 未核实 |
-| PKG-189 | `dsh-subprocess-local` | api-surface.md 该包节 | 未核实 |
-| PKG-190 | `dsh-system-prompt` | api-surface.md 该包节 | 未核实 |
-| PKG-191 | `dsh-terminal` | api-surface.md 该包节 | 未核实 |
-| PKG-192 | `dsh-terminal-bash` | api-surface.md 该包节 | 未核实 |
-| PKG-193 | `dsh-time-context` | api-surface.md 该包节 | 未核实 |
-| PKG-194 | `dsh-timeout` | api-surface.md 该包节 | 未核实 |
-| PKG-195 | `dsh-tmux-context` | api-surface.md 该包节 | 未核实 |
-| PKG-196 | `dsh-token-meter` | api-surface.md 该包节 | 未核实 |
-| PKG-197 | `dsh-tool-ask-user` | api-surface.md 该包节 | 未核实 |
-| PKG-198 | `dsh-tool-bash` | api-surface.md 该包节 | 未核实 |
-| PKG-199 | `dsh-tool-bash-persistent` | api-surface.md 该包节 | 未核实 |
-| PKG-200 | `dsh-tool-call-timeout-policy` | api-surface.md 该包节 | 未核实 |
-| PKG-201 | `dsh-tool-cordis` | api-surface.md 该包节 | 未核实 |
-| PKG-202 | `dsh-tool-fs` | api-surface.md 该包节 | 未核实 |
-| PKG-203 | `dsh-tool-fs-search` | api-surface.md 该包节 | 未核实 |
-| PKG-204 | `dsh-tool-goal` | api-surface.md 该包节 | 未核实 |
-| PKG-205 | `dsh-tool-jobs` | api-surface.md 该包节 | 未核实 |
-| PKG-206 | `dsh-tool-present` | api-surface.md 该包节 | 未核实 |
-| PKG-207 | `dsh-tool-pwsh` | api-surface.md 该包节 | 未核实 |
-| PKG-208 | `dsh-tool-pwsh-persistent` | api-surface.md 该包节 | 未核实 |
-| PKG-209 | `dsh-tool-ralph` | api-surface.md 该包节 | 未核实 |
-| PKG-210 | `dsh-tool-skill` | api-surface.md 该包节 | 未核实 |
-| PKG-211 | `dsh-tool-str-replace-editor` | api-surface.md 该包节 | 未核实 |
-| PKG-212 | `dsh-tool-subagent` | api-surface.md 该包节 | 未核实 |
-| PKG-213 | `dsh-tool-subagent-control` | api-surface.md 该包节 | 未核实 |
-| PKG-214 | `dsh-tool-todo` | api-surface.md 该包节 | 未核实 |
-| PKG-215 | `dsh-tool-web` | api-surface.md 该包节 | 未核实 |
-| PKG-216 | `dsh-tool-workflow` | api-surface.md 该包节 | 未核实 |
-| PKG-217 | `dsh-tools` | api-surface.md 该包节 | 未核实 |
-| PKG-218 | `dsh-typert-loader` | api-surface.md 该包节 | 未核实 |
-| PKG-219 | `dsh-typert-protocol` | api-surface.md 该包节 | 未核实 |
-| PKG-220 | `dsh-typert-registry` | api-surface.md 该包节 | 未核实 |
-| PKG-221 | `dsh-user-approval` | api-surface.md 该包节 | 未核实 |
-| PKG-222 | `dsh-user-questions` | api-surface.md 该包节 | 未核实 |
-| PKG-223 | `dsh-util-crypto` | api-surface.md 该包节 | 未核实 |
-| PKG-224 | `dsh-util-time` | api-surface.md 该包节 | 未核实 |
-| PKG-225 | `dsh-util-values` | api-surface.md 该包节 | 未核实 |
-| PKG-226 | `dsh-util-workspace-path` | api-surface.md 该包节 | 未核实 |
-| PKG-227 | `dsh-web` | api-surface.md 该包节 | 未核实 |
-| PKG-228 | `dsh-web-app` | api-surface.md 该包节 | 未核实 |
-| PKG-229 | `dsh-web-fetch-http` | api-surface.md 该包节 | 未核实 |
-| PKG-230 | `dsh-web-search-deepseek` | api-surface.md 该包节 | 未核实 |
-| PKG-231 | `dsh-webhook` | api-surface.md 该包节 | 未核实 |
-| PKG-232 | `dsh-webhook-github` | api-surface.md 该包节 | 未核实 |
-| PKG-233 | `dsh-win32-process` | api-surface.md 该包节 | 未核实 |
-| PKG-234 | `dsh-workflow` | api-surface.md 该包节 | 未核实 |
-| PKG-235 | `dsh-workflow-worker-thread` | api-surface.md 该包节 | 未核实 |
-| PKG-236 | `dsh-workspace` | api-surface.md 该包节 | 未核实 |
-| PKG-237 | `node-addon-system` | api-surface.md 该包节 | 未核实 |
-| PKG-238 | `schemastery` | api-surface.md 该包节 | 未核实 |
+| PKG-001 | `cordis` | [api/cordis.md](api/cordis.md) | 未核实 |
+| PKG-002 | `cordis-plugin-group` | [api/cordis-plugin-group.md](api/cordis-plugin-group.md) | 未核实 |
+| PKG-003 | `cordis-plugin-hmr` | [api/cordis-plugin-hmr.md](api/cordis-plugin-hmr.md) | 未核实 |
+| PKG-004 | `cordis-plugin-include` | [api/cordis-plugin-include.md](api/cordis-plugin-include.md) | 未核实 |
+| PKG-005 | `cordis-plugin-loader` | [api/cordis-plugin-loader.md](api/cordis-plugin-loader.md) | 未核实 |
+| PKG-006 | `cordis-plugin-timer` | [api/cordis-plugin-timer.md](api/cordis-plugin-timer.md) | 未核实 |
+| PKG-007 | `cosmokit` | [api/cosmokit.md](api/cosmokit.md) | 未核实 |
+| PKG-008 | `dsh-acp` | [api/dsh-acp.md](api/dsh-acp.md) | 未核实 |
+| PKG-009 | `dsh-acp-app` | [api/dsh-acp-app.md](api/dsh-acp-app.md) | 未核实 |
+| PKG-010 | `dsh-agent` | [api/dsh-agent.md](api/dsh-agent.md) | 未核实 |
+| PKG-011 | `dsh-agent-default-model` | [api/dsh-agent-default-model.md](api/dsh-agent-default-model.md) | 未核实 |
+| PKG-012 | `dsh-agent-instructions` | [api/dsh-agent-instructions.md](api/dsh-agent-instructions.md) | 未核实 |
+| PKG-013 | `dsh-agent-loop` | [api/dsh-agent-loop.md](api/dsh-agent-loop.md) | 未核实 |
+| PKG-014 | `dsh-agent-presets` | [api/dsh-agent-presets.md](api/dsh-agent-presets.md) | 未核实 |
+| PKG-015 | `dsh-agent-tool-presentation` | [api/dsh-agent-tool-presentation.md](api/dsh-agent-tool-presentation.md) | 未核实 |
+| PKG-016 | `dsh-anonymous-user-id` | [api/dsh-anonymous-user-id.md](api/dsh-anonymous-user-id.md) | 未核实 |
+| PKG-017 | `dsh-api-gateway` | [api/dsh-api-gateway.md](api/dsh-api-gateway.md) | 未核实 |
+| PKG-018 | `dsh-api-remotes` | [api/dsh-api-remotes.md](api/dsh-api-remotes.md) | 未核实 |
+| PKG-019 | `dsh-api-session-controller` | [api/dsh-api-session-controller.md](api/dsh-api-session-controller.md) | 未核实 |
+| PKG-020 | `dsh-api-settings-controller` | [api/dsh-api-settings-controller.md](api/dsh-api-settings-controller.md) | 未核实 |
+| PKG-021 | `dsh-api-workspace-controller` | [api/dsh-api-workspace-controller.md](api/dsh-api-workspace-controller.md) | 未核实 |
+| PKG-022 | `dsh-api-workspace-files` | [api/dsh-api-workspace-files.md](api/dsh-api-workspace-files.md) | 未核实 |
+| PKG-023 | `dsh-app-boot` | [api/dsh-app-boot.md](api/dsh-app-boot.md) | 未核实 |
+| PKG-024 | `dsh-atomic-write` | [api/dsh-atomic-write.md](api/dsh-atomic-write.md) | 未核实 |
+| PKG-025 | `dsh-attachment` | [api/dsh-attachment.md](api/dsh-attachment.md) | 未核实 |
+| PKG-026 | `dsh-attachment-local` | [api/dsh-attachment-local.md](api/dsh-attachment-local.md) | 未核实 |
+| PKG-027 | `dsh-authorization` | [api/dsh-authorization.md](api/dsh-authorization.md) | 未核实 |
+| PKG-028 | `dsh-base` | [api/dsh-base.md](api/dsh-base.md) | 未核实 |
+| PKG-029 | `dsh-bash-local` | [api/dsh-bash-local.md](api/dsh-bash-local.md) | 未核实 |
+| PKG-030 | `dsh-bash-sandbox` | [api/dsh-bash-sandbox.md](api/dsh-bash-sandbox.md) | 未核实 |
+| PKG-031 | `dsh-brand` | [api/dsh-brand.md](api/dsh-brand.md) | 未核实 |
+| PKG-032 | `dsh-chunked-list` | [api/dsh-chunked-list.md](api/dsh-chunked-list.md) | 未核实 |
+| PKG-033 | `dsh-client-connection` | [api/dsh-client-connection.md](api/dsh-client-connection.md) | 未核实 |
+| PKG-034 | `dsh-client-file-upload` | [api/dsh-client-file-upload.md](api/dsh-client-file-upload.md) | 未核实 |
+| PKG-035 | `dsh-client-hmr` | [api/dsh-client-hmr.md](api/dsh-client-hmr.md) | 未核实 |
+| PKG-036 | `dsh-client-locale` | [api/dsh-client-locale.md](api/dsh-client-locale.md) | 未核实 |
+| PKG-037 | `dsh-client-modules` | [api/dsh-client-modules.md](api/dsh-client-modules.md) | 未核实 |
+| PKG-038 | `dsh-client-resources` | [api/dsh-client-resources.md](api/dsh-client-resources.md) | 未核实 |
+| PKG-039 | `dsh-client-ui-agent-preset` | [api/dsh-client-ui-agent-preset.md](api/dsh-client-ui-agent-preset.md) | 未核实 |
+| PKG-040 | `dsh-client-ui-approval` | [api/dsh-client-ui-approval.md](api/dsh-client-ui-approval.md) | 未核实 |
+| PKG-041 | `dsh-client-ui-attachment` | [api/dsh-client-ui-attachment.md](api/dsh-client-ui-attachment.md) | 未核实 |
+| PKG-042 | `dsh-client-ui-brand-official` | [api/dsh-client-ui-brand-official.md](api/dsh-client-ui-brand-official.md) | 未核实 |
+| PKG-043 | `dsh-client-ui-chat` | [api/dsh-client-ui-chat.md](api/dsh-client-ui-chat.md) | 未核实 |
+| PKG-044 | `dsh-client-ui-commands` | [api/dsh-client-ui-commands.md](api/dsh-client-ui-commands.md) | 未核实 |
+| PKG-045 | `dsh-client-ui-conversation` | [api/dsh-client-ui-conversation.md](api/dsh-client-ui-conversation.md) | 未核实 |
+| PKG-046 | `dsh-client-ui-cordis` | [api/dsh-client-ui-cordis.md](api/dsh-client-ui-cordis.md) | 未核实 |
+| PKG-047 | `dsh-client-ui-deliverables` | [api/dsh-client-ui-deliverables.md](api/dsh-client-ui-deliverables.md) | 未核实 |
+| PKG-048 | `dsh-client-ui-directory-picker-browse` | [api/dsh-client-ui-directory-picker-browse.md](api/dsh-client-ui-directory-picker-browse.md) | 未核实 |
+| PKG-049 | `dsh-client-ui-directory-picker-native` | [api/dsh-client-ui-directory-picker-native.md](api/dsh-client-ui-directory-picker-native.md) | 未核实 |
+| PKG-050 | `dsh-client-ui-goal` | [api/dsh-client-ui-goal.md](api/dsh-client-ui-goal.md) | 未核实 |
+| PKG-051 | `dsh-client-ui-input-trigger` | [api/dsh-client-ui-input-trigger.md](api/dsh-client-ui-input-trigger.md) | 未核实 |
+| PKG-052 | `dsh-client-ui-jobs` | [api/dsh-client-ui-jobs.md](api/dsh-client-ui-jobs.md) | 未核实 |
+| PKG-053 | `dsh-client-ui-layout` | [api/dsh-client-ui-layout.md](api/dsh-client-ui-layout.md) | 未核实 |
+| PKG-054 | `dsh-client-ui-message-feedback` | [api/dsh-client-ui-message-feedback.md](api/dsh-client-ui-message-feedback.md) | 未核实 |
+| PKG-055 | `dsh-client-ui-model-selection` | [api/dsh-client-ui-model-selection.md](api/dsh-client-ui-model-selection.md) | 未核实 |
+| PKG-056 | `dsh-client-ui-open-in-app` | [api/dsh-client-ui-open-in-app.md](api/dsh-client-ui-open-in-app.md) | 未核实 |
+| PKG-057 | `dsh-client-ui-permission-presets` | [api/dsh-client-ui-permission-presets.md](api/dsh-client-ui-permission-presets.md) | 未核实 |
+| PKG-058 | `dsh-client-ui-plan` | [api/dsh-client-ui-plan.md](api/dsh-client-ui-plan.md) | 未核实 |
+| PKG-059 | `dsh-client-ui-reference` | [api/dsh-client-ui-reference.md](api/dsh-client-ui-reference.md) | 未核实 |
+| PKG-060 | `dsh-client-ui-renderer` | [api/dsh-client-ui-renderer.md](api/dsh-client-ui-renderer.md) | 未核实 |
+| PKG-061 | `dsh-client-ui-schedule` | [api/dsh-client-ui-schedule.md](api/dsh-client-ui-schedule.md) | 未核实 |
+| PKG-062 | `dsh-client-ui-session` | [api/dsh-client-ui-session.md](api/dsh-client-ui-session.md) | 未核实 |
+| PKG-063 | `dsh-client-ui-settings` | [api/dsh-client-ui-settings.md](api/dsh-client-ui-settings.md) | 未核实 |
+| PKG-064 | `dsh-client-ui-settings-general` | [api/dsh-client-ui-settings-general.md](api/dsh-client-ui-settings-general.md) | 未核实 |
+| PKG-065 | `dsh-client-ui-settings-models` | [api/dsh-client-ui-settings-models.md](api/dsh-client-ui-settings-models.md) | 未核实 |
+| PKG-066 | `dsh-client-ui-settings-plugin-inventory` | [api/dsh-client-ui-settings-plugin-inventory.md](api/dsh-client-ui-settings-plugin-inventory.md) | 未核实 |
+| PKG-067 | `dsh-client-ui-settings-plugins` | [api/dsh-client-ui-settings-plugins.md](api/dsh-client-ui-settings-plugins.md) | 未核实 |
+| PKG-068 | `dsh-client-ui-sidebar` | [api/dsh-client-ui-sidebar.md](api/dsh-client-ui-sidebar.md) | 未核实 |
+| PKG-069 | `dsh-client-ui-sidebar-documentpreview` | [api/dsh-client-ui-sidebar-documentpreview.md](api/dsh-client-ui-sidebar-documentpreview.md) | 未核实 |
+| PKG-070 | `dsh-client-ui-sidebar-files` | [api/dsh-client-ui-sidebar-files.md](api/dsh-client-ui-sidebar-files.md) | 未核实 |
+| PKG-071 | `dsh-client-ui-sidebar-right` | [api/dsh-client-ui-sidebar-right.md](api/dsh-client-ui-sidebar-right.md) | 未核实 |
+| PKG-072 | `dsh-client-ui-skill` | [api/dsh-client-ui-skill.md](api/dsh-client-ui-skill.md) | 未核实 |
+| PKG-073 | `dsh-client-ui-subagent` | [api/dsh-client-ui-subagent.md](api/dsh-client-ui-subagent.md) | 未核实 |
+| PKG-074 | `dsh-client-ui-theme` | [api/dsh-client-ui-theme.md](api/dsh-client-ui-theme.md) | 未核实 |
+| PKG-075 | `dsh-client-ui-tool` | [api/dsh-client-ui-tool.md](api/dsh-client-ui-tool.md) | 未核实 |
+| PKG-076 | `dsh-client-ui-trajectory` | [api/dsh-client-ui-trajectory.md](api/dsh-client-ui-trajectory.md) | 未核实 |
+| PKG-077 | `dsh-client-ui-user-questions` | [api/dsh-client-ui-user-questions.md](api/dsh-client-ui-user-questions.md) | 未核实 |
+| PKG-078 | `dsh-client-ui-workflow-run` | [api/dsh-client-ui-workflow-run.md](api/dsh-client-ui-workflow-run.md) | 未核实 |
+| PKG-079 | `dsh-client-ui-workspace` | [api/dsh-client-ui-workspace.md](api/dsh-client-ui-workspace.md) | 未核实 |
+| PKG-080 | `dsh-cmdline` | [api/dsh-cmdline.md](api/dsh-cmdline.md) | 未核实 |
+| PKG-081 | `dsh-code-runtime` | [api/dsh-code-runtime.md](api/dsh-code-runtime.md) | 未核实 |
+| PKG-082 | `dsh-code-runtime-worker-thread` | [api/dsh-code-runtime-worker-thread.md](api/dsh-code-runtime-worker-thread.md) | 未核实 |
+| PKG-083 | `dsh-command-compact` | [api/dsh-command-compact.md](api/dsh-command-compact.md) | 未核实 |
+| PKG-084 | `dsh-command-feedback` | [api/dsh-command-feedback.md](api/dsh-command-feedback.md) | 未核实 |
+| PKG-085 | `dsh-command-goal` | [api/dsh-command-goal.md](api/dsh-command-goal.md) | 未核实 |
+| PKG-086 | `dsh-commands` | [api/dsh-commands.md](api/dsh-commands.md) | 未核实 |
+| PKG-087 | `dsh-compaction` | [api/dsh-compaction.md](api/dsh-compaction.md) | 未核实 |
+| PKG-088 | `dsh-compaction-basic` | [api/dsh-compaction-basic.md](api/dsh-compaction-basic.md) | 未核实 |
+| PKG-089 | `dsh-compaction-tool-result-pruner` | [api/dsh-compaction-tool-result-pruner.md](api/dsh-compaction-tool-result-pruner.md) | 未核实 |
+| PKG-090 | `dsh-cordis-client-runner` | [api/dsh-cordis-client-runner.md](api/dsh-cordis-client-runner.md) | 未核实 |
+| PKG-091 | `dsh-cordis-host-runner` | [api/dsh-cordis-host-runner.md](api/dsh-cordis-host-runner.md) | 未核实 |
+| PKG-092 | `dsh-credentials` | [api/dsh-credentials.md](api/dsh-credentials.md) | 未核实 |
+| PKG-093 | `dsh-credentials-local` | [api/dsh-credentials-local.md](api/dsh-credentials-local.md) | 未核实 |
+| PKG-094 | `dsh-deepseek-llm-api-extensions` | [api/dsh-deepseek-llm-api-extensions.md](api/dsh-deepseek-llm-api-extensions.md) | 未核实 |
+| PKG-095 | `dsh-deque` | [api/dsh-deque.md](api/dsh-deque.md) | 未核实 |
+| PKG-096 | `dsh-file-reference` | [api/dsh-file-reference.md](api/dsh-file-reference.md) | 未核实 |
+| PKG-097 | `dsh-file-reference-local` | [api/dsh-file-reference-local.md](api/dsh-file-reference-local.md) | 未核实 |
+| PKG-098 | `dsh-fs` | [api/dsh-fs.md](api/dsh-fs.md) | 未核实 |
+| PKG-099 | `dsh-fs-local` | [api/dsh-fs-local.md](api/dsh-fs-local.md) | 未核实 |
+| PKG-100 | `dsh-fs-observation-policy` | [api/dsh-fs-observation-policy.md](api/dsh-fs-observation-policy.md) | 未核实 |
+| PKG-101 | `dsh-fs-sandbox` | [api/dsh-fs-sandbox.md](api/dsh-fs-sandbox.md) | 未核实 |
+| PKG-102 | `dsh-goal` | [api/dsh-goal.md](api/dsh-goal.md) | 未核实 |
+| PKG-103 | `dsh-goal-round-driver` | [api/dsh-goal-round-driver.md](api/dsh-goal-round-driver.md) | 未核实 |
+| PKG-104 | `dsh-headless` | [api/dsh-headless.md](api/dsh-headless.md) | 未核实 |
+| PKG-105 | `dsh-home-paths` | [api/dsh-home-paths.md](api/dsh-home-paths.md) | 未核实 |
+| PKG-106 | `dsh-hook-protocol` | [api/dsh-hook-protocol.md](api/dsh-hook-protocol.md) | 未核实 |
+| PKG-107 | `dsh-hooks-claude-code` | [api/dsh-hooks-claude-code.md](api/dsh-hooks-claude-code.md) | 未核实 |
+| PKG-108 | `dsh-hooks-codex` | [api/dsh-hooks-codex.md](api/dsh-hooks-codex.md) | 未核实 |
+| PKG-109 | `dsh-host-directory-picker` | [api/dsh-host-directory-picker.md](api/dsh-host-directory-picker.md) | 未核实 |
+| PKG-110 | `dsh-host-directory-picker-auto` | [api/dsh-host-directory-picker-auto.md](api/dsh-host-directory-picker-auto.md) | 未核实 |
+| PKG-111 | `dsh-host-directory-picker-browse` | [api/dsh-host-directory-picker-browse.md](api/dsh-host-directory-picker-browse.md) | 未核实 |
+| PKG-112 | `dsh-host-directory-picker-native` | [api/dsh-host-directory-picker-native.md](api/dsh-host-directory-picker-native.md) | 未核实 |
+| PKG-113 | `dsh-host-frontend-static` | [api/dsh-host-frontend-static.md](api/dsh-host-frontend-static.md) | 未核实 |
+| PKG-114 | `dsh-host-open-in-app` | [api/dsh-host-open-in-app.md](api/dsh-host-open-in-app.md) | 未核实 |
+| PKG-115 | `dsh-host-plugin-inventory` | [api/dsh-host-plugin-inventory.md](api/dsh-host-plugin-inventory.md) | 未核实 |
+| PKG-116 | `dsh-host-webserver` | [api/dsh-host-webserver.md](api/dsh-host-webserver.md) | 未核实 |
+| PKG-117 | `dsh-http-proxy` | [api/dsh-http-proxy.md](api/dsh-http-proxy.md) | 未核实 |
+| PKG-118 | `dsh-invariants` | [api/dsh-invariants.md](api/dsh-invariants.md) | 未核实 |
+| PKG-119 | `dsh-jobs` | [api/dsh-jobs.md](api/dsh-jobs.md) | 未核实 |
+| PKG-120 | `dsh-jobs-local` | [api/dsh-jobs-local.md](api/dsh-jobs-local.md) | 未核实 |
+| PKG-121 | `dsh-launch-environment` | [api/dsh-launch-environment.md](api/dsh-launch-environment.md) | 未核实 |
+| PKG-122 | `dsh-llm` | [api/dsh-llm.md](api/dsh-llm.md) | 未核实 |
+| PKG-123 | `dsh-llm-deepseek` | [api/dsh-llm-deepseek.md](api/dsh-llm-deepseek.md) | 未核实 |
+| PKG-124 | `dsh-llm-pi-ai` | [api/dsh-llm-pi-ai.md](api/dsh-llm-pi-ai.md) | 未核实 |
+| PKG-125 | `dsh-llm-retry` | [api/dsh-llm-retry.md](api/dsh-llm-retry.md) | 未核实 |
+| PKG-126 | `dsh-mcp-client` | [api/dsh-mcp-client.md](api/dsh-mcp-client.md) | 未核实 |
+| PKG-127 | `dsh-message-feedback` | [api/dsh-message-feedback.md](api/dsh-message-feedback.md) | 未核实 |
+| PKG-128 | `dsh-native-command` | [api/dsh-native-command.md](api/dsh-native-command.md) | 未核实 |
+| PKG-129 | `dsh-output-retention` | [api/dsh-output-retention.md](api/dsh-output-retention.md) | 未核实 |
+| PKG-130 | `dsh-package-manifest` | [api/dsh-package-manifest.md](api/dsh-package-manifest.md) | 未核实 |
+| PKG-131 | `dsh-permission-presets` | [api/dsh-permission-presets.md](api/dsh-permission-presets.md) | 未核实 |
+| PKG-132 | `dsh-persona` | [api/dsh-persona.md](api/dsh-persona.md) | 未核实 |
+| PKG-133 | `dsh-plan-mode` | [api/dsh-plan-mode.md](api/dsh-plan-mode.md) | 未核实 |
+| PKG-134 | `dsh-plugin-package-inventory-deepseek` | [api/dsh-plugin-package-inventory-deepseek.md](api/dsh-plugin-package-inventory-deepseek.md) | 未核实 |
+| PKG-135 | `dsh-pwsh-local` | [api/dsh-pwsh-local.md](api/dsh-pwsh-local.md) | 未核实 |
+| PKG-136 | `dsh-pwsh-sandbox` | [api/dsh-pwsh-sandbox.md](api/dsh-pwsh-sandbox.md) | 未核实 |
+| PKG-137 | `dsh-repeat-tool-reminder` | [api/dsh-repeat-tool-reminder.md](api/dsh-repeat-tool-reminder.md) | 未核实 |
+| PKG-138 | `dsh-sandbox` | [api/dsh-sandbox.md](api/dsh-sandbox.md) | 未核实 |
+| PKG-139 | `dsh-sandbox-local` | [api/dsh-sandbox-local.md](api/dsh-sandbox-local.md) | 未核实 |
+| PKG-140 | `dsh-sandbox-policy` | [api/dsh-sandbox-policy.md](api/dsh-sandbox-policy.md) | 未核实 |
+| PKG-141 | `dsh-sandbox-windows-acl` | [api/dsh-sandbox-windows-acl.md](api/dsh-sandbox-windows-acl.md) | 未核实 |
+| PKG-142 | `dsh-schedule` | [api/dsh-schedule.md](api/dsh-schedule.md) | 未核实 |
+| PKG-143 | `dsh-scope` | [api/dsh-scope.md](api/dsh-scope.md) | 未核实 |
+| PKG-144 | `dsh-sdk-app` | [api/dsh-sdk-app.md](api/dsh-sdk-app.md) | 未核实 |
+| PKG-145 | `dsh-sdk-jsonrpc-server` | [api/dsh-sdk-jsonrpc-server.md](api/dsh-sdk-jsonrpc-server.md) | 未核实 |
+| PKG-146 | `dsh-sdk-minimal` | [api/dsh-sdk-minimal.md](api/dsh-sdk-minimal.md) | 未核实 |
+| PKG-147 | `dsh-sdk-protocol` | [api/dsh-sdk-protocol.md](api/dsh-sdk-protocol.md) | 未核实 |
+| PKG-148 | `dsh-session` | [api/dsh-session.md](api/dsh-session.md) | 未核实 |
+| PKG-149 | `dsh-session-checkpoint-policy` | [api/dsh-session-checkpoint-policy.md](api/dsh-session-checkpoint-policy.md) | 未核实 |
+| PKG-150 | `dsh-session-format` | [api/dsh-session-format.md](api/dsh-session-format.md) | 未核实 |
+| PKG-151 | `dsh-session-format-catalog` | [api/dsh-session-format-catalog.md](api/dsh-session-format-catalog.md) | 未核实 |
+| PKG-152 | `dsh-session-format-v0-to-v1` | [api/dsh-session-format-v0-to-v1.md](api/dsh-session-format-v0-to-v1.md) | 未核实 |
+| PKG-153 | `dsh-session-format-v1-to-v2` | [api/dsh-session-format-v1-to-v2.md](api/dsh-session-format-v1-to-v2.md) | 未核实 |
+| PKG-154 | `dsh-session-format-v2-to-v3` | [api/dsh-session-format-v2-to-v3.md](api/dsh-session-format-v2-to-v3.md) | 未核实 |
+| PKG-155 | `dsh-session-log-deepseek` | [api/dsh-session-log-deepseek.md](api/dsh-session-log-deepseek.md) | 未核实 |
+| PKG-156 | `dsh-session-log-export` | [api/dsh-session-log-export.md](api/dsh-session-log-export.md) | 未核实 |
+| PKG-157 | `dsh-session-persistence` | [api/dsh-session-persistence.md](api/dsh-session-persistence.md) | 未核实 |
+| PKG-158 | `dsh-session-persistence-jsonl` | [api/dsh-session-persistence-jsonl.md](api/dsh-session-persistence-jsonl.md) | 未核实 |
+| PKG-159 | `dsh-session-projection` | [api/dsh-session-projection.md](api/dsh-session-projection.md) | 未核实 |
+| PKG-160 | `dsh-session-projection-cache` | [api/dsh-session-projection-cache.md](api/dsh-session-projection-cache.md) | 未核实 |
+| PKG-161 | `dsh-session-query` | [api/dsh-session-query.md](api/dsh-session-query.md) | 未核实 |
+| PKG-162 | `dsh-session-query-sqlite` | [api/dsh-session-query-sqlite.md](api/dsh-session-query-sqlite.md) | 未核实 |
+| PKG-163 | `dsh-session-reference` | [api/dsh-session-reference.md](api/dsh-session-reference.md) | 未核实 |
+| PKG-164 | `dsh-session-stats` | [api/dsh-session-stats.md](api/dsh-session-stats.md) | 未核实 |
+| PKG-165 | `dsh-session-telemetry` | [api/dsh-session-telemetry.md](api/dsh-session-telemetry.md) | 未核实 |
+| PKG-166 | `dsh-session-telemetry-otel` | [api/dsh-session-telemetry-otel.md](api/dsh-session-telemetry-otel.md) | 未核实 |
+| PKG-167 | `dsh-session-title` | [api/dsh-session-title.md](api/dsh-session-title.md) | 未核实 |
+| PKG-168 | `dsh-session-title-first-prompt-llm` | [api/dsh-session-title-first-prompt-llm.md](api/dsh-session-title-first-prompt-llm.md) | 未核实 |
+| PKG-169 | `dsh-session-title-llm` | [api/dsh-session-title-llm.md](api/dsh-session-title-llm.md) | 未核实 |
+| PKG-170 | `dsh-session-turn-outline` | [api/dsh-session-turn-outline.md](api/dsh-session-turn-outline.md) | 未核实 |
+| PKG-171 | `dsh-settings` | [api/dsh-settings.md](api/dsh-settings.md) | 未核实 |
+| PKG-172 | `dsh-settings-file` | [api/dsh-settings-file.md](api/dsh-settings-file.md) | 未核实 |
+| PKG-173 | `dsh-shell` | [api/dsh-shell.md](api/dsh-shell.md) | 未核实 |
+| PKG-174 | `dsh-shell-env` | [api/dsh-shell-env.md](api/dsh-shell-env.md) | 未核实 |
+| PKG-175 | `dsh-skill` | [api/dsh-skill.md](api/dsh-skill.md) | 未核实 |
+| PKG-176 | `dsh-skill-badge` | [api/dsh-skill-badge.md](api/dsh-skill-badge.md) | 未核实 |
+| PKG-177 | `dsh-skill-filesystem` | [api/dsh-skill-filesystem.md](api/dsh-skill-filesystem.md) | 未核实 |
+| PKG-178 | `dsh-spill` | [api/dsh-spill.md](api/dsh-spill.md) | 未核实 |
+| PKG-179 | `dsh-spill-local` | [api/dsh-spill-local.md](api/dsh-spill-local.md) | 未核实 |
+| PKG-180 | `dsh-spill-policy` | [api/dsh-spill-policy.md](api/dsh-spill-policy.md) | 未核实 |
+| PKG-181 | `dsh-storage` | [api/dsh-storage.md](api/dsh-storage.md) | 未核实 |
+| PKG-182 | `dsh-storage-domain` | [api/dsh-storage-domain.md](api/dsh-storage-domain.md) | 未核实 |
+| PKG-183 | `dsh-storage-json` | [api/dsh-storage-json.md](api/dsh-storage-json.md) | 未核实 |
+| PKG-184 | `dsh-subagent` | [api/dsh-subagent.md](api/dsh-subagent.md) | 未核实 |
+| PKG-185 | `dsh-subagent-fork-in-process` | [api/dsh-subagent-fork-in-process.md](api/dsh-subagent-fork-in-process.md) | 未核实 |
+| PKG-186 | `dsh-subagent-in-process-driver` | [api/dsh-subagent-in-process-driver.md](api/dsh-subagent-in-process-driver.md) | 未核实 |
+| PKG-187 | `dsh-subagent-spawn-in-process` | [api/dsh-subagent-spawn-in-process.md](api/dsh-subagent-spawn-in-process.md) | 未核实 |
+| PKG-188 | `dsh-subprocess` | [api/dsh-subprocess.md](api/dsh-subprocess.md) | 未核实 |
+| PKG-189 | `dsh-subprocess-local` | [api/dsh-subprocess-local.md](api/dsh-subprocess-local.md) | 未核实 |
+| PKG-190 | `dsh-system-prompt` | [api/dsh-system-prompt.md](api/dsh-system-prompt.md) | 未核实 |
+| PKG-191 | `dsh-terminal` | [api/dsh-terminal.md](api/dsh-terminal.md) | 未核实 |
+| PKG-192 | `dsh-terminal-bash` | [api/dsh-terminal-bash.md](api/dsh-terminal-bash.md) | 未核实 |
+| PKG-193 | `dsh-time-context` | [api/dsh-time-context.md](api/dsh-time-context.md) | 未核实 |
+| PKG-194 | `dsh-timeout` | [api/dsh-timeout.md](api/dsh-timeout.md) | 未核实 |
+| PKG-195 | `dsh-tmux-context` | [api/dsh-tmux-context.md](api/dsh-tmux-context.md) | 未核实 |
+| PKG-196 | `dsh-token-meter` | [api/dsh-token-meter.md](api/dsh-token-meter.md) | 未核实 |
+| PKG-197 | `dsh-tool-ask-user` | [api/dsh-tool-ask-user.md](api/dsh-tool-ask-user.md) | 未核实 |
+| PKG-198 | `dsh-tool-bash` | [api/dsh-tool-bash.md](api/dsh-tool-bash.md) | 未核实 |
+| PKG-199 | `dsh-tool-bash-persistent` | [api/dsh-tool-bash-persistent.md](api/dsh-tool-bash-persistent.md) | 未核实 |
+| PKG-200 | `dsh-tool-call-timeout-policy` | [api/dsh-tool-call-timeout-policy.md](api/dsh-tool-call-timeout-policy.md) | 未核实 |
+| PKG-201 | `dsh-tool-cordis` | [api/dsh-tool-cordis.md](api/dsh-tool-cordis.md) | 未核实 |
+| PKG-202 | `dsh-tool-fs` | [api/dsh-tool-fs.md](api/dsh-tool-fs.md) | 未核实 |
+| PKG-203 | `dsh-tool-fs-search` | [api/dsh-tool-fs-search.md](api/dsh-tool-fs-search.md) | 未核实 |
+| PKG-204 | `dsh-tool-goal` | [api/dsh-tool-goal.md](api/dsh-tool-goal.md) | 未核实 |
+| PKG-205 | `dsh-tool-jobs` | [api/dsh-tool-jobs.md](api/dsh-tool-jobs.md) | 未核实 |
+| PKG-206 | `dsh-tool-present` | [api/dsh-tool-present.md](api/dsh-tool-present.md) | 未核实 |
+| PKG-207 | `dsh-tool-pwsh` | [api/dsh-tool-pwsh.md](api/dsh-tool-pwsh.md) | 未核实 |
+| PKG-208 | `dsh-tool-pwsh-persistent` | [api/dsh-tool-pwsh-persistent.md](api/dsh-tool-pwsh-persistent.md) | 未核实 |
+| PKG-209 | `dsh-tool-ralph` | [api/dsh-tool-ralph.md](api/dsh-tool-ralph.md) | 未核实 |
+| PKG-210 | `dsh-tool-skill` | [api/dsh-tool-skill.md](api/dsh-tool-skill.md) | 未核实 |
+| PKG-211 | `dsh-tool-str-replace-editor` | [api/dsh-tool-str-replace-editor.md](api/dsh-tool-str-replace-editor.md) | 未核实 |
+| PKG-212 | `dsh-tool-subagent` | [api/dsh-tool-subagent.md](api/dsh-tool-subagent.md) | 未核实 |
+| PKG-213 | `dsh-tool-subagent-control` | [api/dsh-tool-subagent-control.md](api/dsh-tool-subagent-control.md) | 未核实 |
+| PKG-214 | `dsh-tool-todo` | [api/dsh-tool-todo.md](api/dsh-tool-todo.md) | 未核实 |
+| PKG-215 | `dsh-tool-web` | [api/dsh-tool-web.md](api/dsh-tool-web.md) | 未核实 |
+| PKG-216 | `dsh-tool-workflow` | [api/dsh-tool-workflow.md](api/dsh-tool-workflow.md) | 未核实 |
+| PKG-217 | `dsh-tools` | [api/dsh-tools.md](api/dsh-tools.md) | 未核实 |
+| PKG-218 | `dsh-typert-loader` | [api/dsh-typert-loader.md](api/dsh-typert-loader.md) | 未核实 |
+| PKG-219 | `dsh-typert-protocol` | [api/dsh-typert-protocol.md](api/dsh-typert-protocol.md) | 未核实 |
+| PKG-220 | `dsh-typert-registry` | [api/dsh-typert-registry.md](api/dsh-typert-registry.md) | 未核实 |
+| PKG-221 | `dsh-user-approval` | [api/dsh-user-approval.md](api/dsh-user-approval.md) | 未核实 |
+| PKG-222 | `dsh-user-questions` | [api/dsh-user-questions.md](api/dsh-user-questions.md) | 未核实 |
+| PKG-223 | `dsh-util-crypto` | [api/dsh-util-crypto.md](api/dsh-util-crypto.md) | 未核实 |
+| PKG-224 | `dsh-util-time` | [api/dsh-util-time.md](api/dsh-util-time.md) | 未核实 |
+| PKG-225 | `dsh-util-values` | [api/dsh-util-values.md](api/dsh-util-values.md) | 未核实 |
+| PKG-226 | `dsh-util-workspace-path` | [api/dsh-util-workspace-path.md](api/dsh-util-workspace-path.md) | 未核实 |
+| PKG-227 | `dsh-web` | [api/dsh-web.md](api/dsh-web.md) | 未核实 |
+| PKG-228 | `dsh-web-app` | [api/dsh-web-app.md](api/dsh-web-app.md) | 未核实 |
+| PKG-229 | `dsh-web-fetch-http` | [api/dsh-web-fetch-http.md](api/dsh-web-fetch-http.md) | 未核实 |
+| PKG-230 | `dsh-web-search-deepseek` | [api/dsh-web-search-deepseek.md](api/dsh-web-search-deepseek.md) | 未核实 |
+| PKG-231 | `dsh-webhook` | [api/dsh-webhook.md](api/dsh-webhook.md) | 未核实 |
+| PKG-232 | `dsh-webhook-github` | [api/dsh-webhook-github.md](api/dsh-webhook-github.md) | 未核实 |
+| PKG-233 | `dsh-win32-process` | [api/dsh-win32-process.md](api/dsh-win32-process.md) | 未核实 |
+| PKG-234 | `dsh-workflow` | [api/dsh-workflow.md](api/dsh-workflow.md) | 未核实 |
+| PKG-235 | `dsh-workflow-worker-thread` | [api/dsh-workflow-worker-thread.md](api/dsh-workflow-worker-thread.md) | 未核实 |
+| PKG-236 | `dsh-workspace` | [api/dsh-workspace.md](api/dsh-workspace.md) | 未核实 |
+| PKG-237 | `node-addon-system` | [api/node-addon-system.md](api/node-addon-system.md) | 未核实 |
+| PKG-238 | `schemastery` | [api/schemastery.md](api/schemastery.md) | 未核实 |
 
 升级后：`node $DSH_HOME/scripts/api-surface.mjs` 再 diff json。

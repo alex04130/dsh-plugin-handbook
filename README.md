@@ -4,38 +4,40 @@
 
 # DSH 全量解析
 
-对 DeepSeek Harness 做包级别的代码解析，写成这套全量文档，给写 DSH 插件的人看。截至约 0.1.5-rc.2。
+中文 · [English](en/README.md)
 
-起因：agent 写 DSH 插件时常常只查到某个 API 存在，不去看整条调用链，于是动手前反复做非必要的代码拉取和机制验证。
+DeepSeek Harness 插件开发参考资料。238 个包的导出、host 与 client 插件面、会话与审批这类机制在 **0.1.5-rc.2** 上的实际行为，都收在这里。
 
-规模：**238** 个包的全部导出；**71** 个 host 服务，其中 **60** 个这次真的挂了（**11** 个没挂）；事件 **62** · builtin **7**；client 槽 **61** · client 服务 **8** · 主题 token **13**。
+我做这个的原因：写插件时要查的东西散在几十个包里。查 API 只查得到「这个方法存在」，查不到它整条调用链怎么走，于是动手前总要重新拉代码、重新试。
 
-## 三十秒上手
+## 找什么在哪里
 
-想知道 `sessionPersistence.inspect` 还能不能用：
+| 你想知道 | 去哪 |
+|---|---|
+| 某个方法或服务还能不能用 | [capabilities.md](capabilities.md)，搜名字看状态 |
+| 撞了个报错，不知道是哪儿拦的 | [gates.md](gates.md)，搜报错原文 |
+| 插件能挂什么（服务 / 事件 / 槽 / builtin） | [plugin-surface.md](plugin-surface.md) |
+| 某个包导出了什么 | [api/](api/README.md)，238 个包一包一页 |
+| 某个改动什么时候生效、preset 怎么写 | [environment.md](environment.md) |
+| 不信上面任何一条 | [verify.md](verify.md)，自己跑一遍 |
+| 某个词看不懂 | [glossary.md](glossary.md) |
 
-1. 在 [capabilities.md](capabilities.md) 里搜 `inspect`
-2. 看到状态是 **已被封死（GATE-002）**：`sessionPersistence.inspect` 这个方法已经没了；`sessionController.inspect` 还在，过同一道格式闸（同一篇里）
-3. 不信这个结论，照 [verify.md](verify.md) 里的命令自己跑一遍
+英文在 [en/](en/README.md)，L2 那几张全量表没翻。
 
-这套文档就这三步。其余篇目是这三步的展开。
+## 覆盖到哪一步
 
-## 从哪看起
-
-想知道某个方法还能不能用，按层看：
-
-| 层 | 能信到什么程度 | 去哪 |
+| | 覆盖 | 到位程度 |
 |---|---|---|
-| 包级 API 表 | 覆盖全部 238 个包；看不到纯 JS 导出（只解析 `.d.ts`） | [l2-packages.md](l2-packages.md) · `docs/harness/api-surface.md` |
-| 能力面全量 | 含「声明有但没挂上」 | [plugin-surface.md](plugin-surface.md) · [l2-host.md](l2-host.md) · [l2-client.md](l2-client.md) |
-| 判断层 | 带原文报错与触发；最可能只对某个版本成立 | [capabilities.md](capabilities.md) · [gates.md](gates.md) |
+| [api/](api/README.md) | 全部 238 个包的导出 | 只解析 `.d.ts`，纯 JS 导出的看不到 |
+| [plugin-surface.md](plugin-surface.md) | 71 服务 · 62 事件 · 61 槽 · 13 token | 扫描为主，多数服务只记了名字和拿法 |
+| [capabilities.md](capabilities.md) · [gates.md](gates.md) | 会话持久化、`restrict`、PTC、子代理换模型这几块 | 逐条跑过，带原文报错；没跑到的标「未核实」 |
 
-另外：[environment.md](environment.md)（目录 / 热载 / preset 语法）· [glossary.md](glossary.md)（词）。索引在 [index.md](index.md)。英文在 [en/](en/README.md)。五值读法见 capabilities 篇头。「未核实」= 这台观察没跑到，不是不能用。
+标**未核实**的条目是**这次没跑到**，不是「不能用」。
 
-## 按哪个名字敲
+## 名字
 
-本稿写的是一台跑 DSH 0.1.5-rc.2、插件装在 `$DSH_HOME` 里的**运行时**。`@dsh-forge/bundle@0.2.0-preview.1` 随包带的工具名是更早的一套（`session_*` / `model_*` / `dev_*` / `teams`）。你若只装了那个包，按包里的名字调，别照这里的 `forge_*` 敲。查你机器上的真名：有 cordis 工具面就 `cordis_inspect_query({ platform:'host', provider:'Tool', method:'listTools' })`；PTC 会话用 `tool_router({ action:'list' })`。以那份清单为准。
+本稿写的是运行时里的名字（`forge_*`）。`@dsh-forge/bundle@0.2.0-preview.1` 随包带的还是更早的一套（`session_*` / `model_*` / `dev_*` / `teams`）。查你机器上的真名：有 cordis 工具面就 `cordis_inspect_query({ platform:'host', provider:'Tool', method:'listTools' })`；PTC 会话用 `tool_router({ action:'list' })`。
 
-发现和你的机器不符：带上你的 DSH 版本和原文报错开 issue。
+## 找错
 
-`$DSH_HOME` = 本机 DSH 家目录。
+带上你的 DSH 版本和原文报错开 issue。`$DSH_HOME` 指本机 DSH 家目录。

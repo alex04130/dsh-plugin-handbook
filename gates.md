@@ -2,7 +2,7 @@
 
 你撞了个报错却对不上是哪条规则：这份按闸列出判据和原文。闸 = 运行时对某个操作的校验（拒绝会报错，或静默改行为；后一种也要写「原文报错」栏，内容可以是「没有报错」）。判据 / 触发 / 原文报错 / 绕法。
 截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2。状态五值：`可用` / `部分可用（默认关，附配方）` / `已被封死（附闸号）` / `从未可用` / `未核实`。
-跨引用用 CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx，或 `./<file>.md`。
+跨引用用 CAP-xxx / GATE-xxx / ENV-xxx，或 `./<file>.md`。
 行号对 `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<包>/lib/...`。
 
 ## 索引
@@ -200,6 +200,7 @@ You are a delegated subagent: your permission scope was fixed when you were star
 
 - **判据**：Config 必填 `prefix: string`（`dsh-persona/lib/types/index.d.ts:24-40`）。
 - **触发**：preset 还写 `text:` → schema 校验失败。
+- **原文报错**：未核实具体 Error.message。
 - **绕法**：改 `prefix:`。没有旧键别名。
 - **状态戳**：截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
 - **关联**：CAP-056、GATE-051。

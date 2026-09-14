@@ -2,8 +2,6 @@
 
 You hit gate, sealed, or declaration surface in the body and need one sentence. One line each, hooked to a mechanism. As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
 
-First mention of 预设 is **preset (预设)**; after that, `preset` only.
-
 | Term | One sentence | Hooks to |
 |---|---|---|
 | DSH_HOME | This machine's home directory, written `$DSH_HOME` | ENV-001 |
@@ -13,7 +11,6 @@ First mention of 预设 is **preset (预设)**; after that, `preset` only.
 | PTC | Presentation mode: the model may call `run_code` directly; everything else goes through the SDK | ENV-021, GATE-022 |
 | native | Presentation mode: one function-call per tool | ENV-021 |
 | run_code | Reserved PTC transport name; cannot register, cannot restrict | GATE-020, GATE-022, CAP-025 |
-| tool_router | Meta-tool: list/describe/call other tools | One measured tool-surface narrowing; this session can only call `run_code` directly |
 | SessionAccess | Second argument of `open()`; only `read` / `write` | GATE-001 |
 | inspect() | 0.1.4 method that returned meta+events in one shot; gone in 0.1.5 | GATE-002, CAP-010 |
 | stat() | 0.1.5 looks at header/revision only; no events | CAP-001 |
@@ -40,7 +37,7 @@ First mention of 预设 is **preset (预设)**; after that, `preset` only.
 | declaration surface (声明面) | Install-tree `.d.ts`, or inspect catalog `listService`/`listEvents`/`listBuiltins`. In the catalog ≠ mounted | l2-host / l2-client |
 | runtime surface (运行面) | Host-layer plugin `ctx.get(name)` one by one (services); slots via `listSubTree`; tokens via `listTokens`. `listService` is **not** the runtime surface | l2-host / plugin-surface |
 | mounted / not mounted (挂 / 未挂) | Whether host-layer plugin `ctx.get` gets it on this assembly. Not mounted can mean cataloged but not loaded this time | plugin-surface |
-| （水位） | **Do not use.** Do not translate. Write "observed N" or observed count | freeze table |
+| watermark (水位, banned) | Banned term. Write "observed N". | freeze table |
 | replaceRisk | Risk of replacing that slot: `shadows-shipped-ui` covers shipped UI; `none` does not cover the root node | l2-client |
 | tool_router | Meta-tool list/describe/call; approval follows the inner tool | CAP-021 |
 | cross-session layer | Same-process cross-session messages + offline queue + approval tiers | CAP-051 |

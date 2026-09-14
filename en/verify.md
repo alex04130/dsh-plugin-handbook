@@ -25,32 +25,22 @@ You do not trust a conclusion, or you upgraded and do not know what broke: run t
 
 ### Session handles
 
-```bash
-# In a plugin or node REPL (needs ctx.sessionPersistence)
-# Inside: open(id, 'read') then handle.read(0, N)
-# Outside: open(id, 'append'). The type has no such value; jsonl treats non-read as write; later append may SessionReadOnlyError
-```
+This section is pending. A runnable `open(id, 'append')` example is in [tutorials/07-silent-failures.md](../tutorials/07-silent-failures.md).
 
 Seeing `persistence.inspect is not a function` means you are still on the 0.1.4 surface (GATE-002).
 
 ### Descriptor version
 
-```bash
-# Positive control: a session whose subagent/descriptor has data.version === 2
-# Read path (persistence/query) may throw:
-#   failed to read session: subagent/descriptor 0 uses unsupported descriptor version 2
-# foldSubagentDescriptor path: version !== 3 → undefined (dsh-subagent/lib/index.js:1359)
-# Without a v2 sample, do not announce "what the read path does"
-```
+This section is pending. Positive control needs a `subagent/descriptor` with `data.version === 2`. The read path may throw `unsupported descriptor version 2`; the fold path returns undefined when `version !== 3`. Without a v2 sample, do not announce what the read path does.
 
 ### restrict
 
 ```js
-// Outside: global ctx
+// Illegal: global ctx
 ctx.tools.restrict({ deny: ['bash'] })
 // Expected: tools.restrict() requires a scoped context (agent.ctx): ...
 
-// Outside: naming the transport
+// Illegal: naming the transport
 agent.ctx.tools.restrict({ deny: ['run_code'] })
 // Expected: tools.restrict() cannot name reserved PTC mode presentation transport "run_code"...
 ```

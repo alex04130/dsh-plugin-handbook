@@ -46,8 +46,7 @@
 | `settings.yaml` | 用户设置 |
 | `projects.json` | 项目/队组织真值 |
 | `console-inbox/` | 控制台待批队列（跨队/跨项目消息） |
-| `console-inbox/` | 控制台待批队列（跨队/跨项目消息） |
-| `profiles/web/cordis.patch.yml` | 宿主插件行（A 数过 23 条，未在合并时重数） |
+| `profiles/web/cordis.patch.yml` | 宿主插件行（曾数过 23 条，未在合并时重数） |
 
 ## ENV-002 · sessions/ 目录名为何以 -- 开头，ls 为啥炸
 
@@ -94,7 +93,7 @@ Try 'ls --help' for more information.
 - **是什么**：`ctx.get('agentPresets')` 这种键。
 - **怎么取**：各包 `lib/types/index.d.ts` 的 `interface Context { <name>: … }`，或 `super(ctx, "<name>")`。
 - **当前状态**：可用。
-- **证据**：`dsh-agent-presets/lib/index.js:1294` `super(ctx, "agentPresets")`。**不是** `presets`。本回合从 types 抽出 68 个 Context 键，常用错的：
+- **证据**：`dsh-agent-presets/lib/index.js:1294` `super(ctx, "agentPresets")`。**不是** `presets`。本次盘点从 types 抽出 68 个 Context 键，常用错的：
 
 | 错 | 对 | 包 |
 |---|---|---|
@@ -129,14 +128,11 @@ agentDefaultModel agentLoop agentPresets agents appExit appReady approval attach
 | ② | 本机文件面 | `profiles/web/plugins/` 21 个 `.mjs`：16 个 `.rN.mjs`（含 <host-plugin> / a skill-manager plugin.r1 / <host-plugin> 等全部业务插件）；**没有** `cross-session layer.mjs` / `a skill-manager plugin.mjs` 这种基名。另有 5 个未版本化：`<dyn-boot-plugin>.mjs` `<bridge-plugin>.mjs` `<extra-unversioned>.mjs` `web-search-kimi.mjs` `web-search-select.mjs`（这五个才会被 :177 放行） |
 | ③ | 活证据（可复跑） | 文件里的值 ≠ 运行时面回读的值，见下表 |
 
-活证据 ③ 复跑命令与两个值（2026-09-13 本会话实测）：
-
-```bash
-```
+活证据 ③ 复跑命令：这一节待补。
 
 | 面 | `cross-session-mailbox` 的 description |
 |---|---|
-| 文件 `<host-plugin>.mjs:38` | `<cross-session-tool> / <cross-session-tool> / <cross-session-tool> / <cross-session-tool>` |
+| 文件 `<host-plugin>.mjs:38` | `session_list / session_read / session_send / mailbox_check` |
 | 运行时 `skill_list` 回读 | `session_list / session_read / session_send / mailbox_check` |
 
 两者不一致 = 编辑 `.rN.mjs` 没有热载。再跑一遍：读 `:38`，再 `skill_list` 找同名技能的 description，对不上就是还没重启。
@@ -157,15 +153,15 @@ agentDefaultModel agentLoop agentPresets agents appExit appReady approval attach
 ## ENV-021 · PTC 把工具面放哪，native 放哪，代价多少
 
 - **是什么**：`dsh-agent-tool-presentation` 的 `mode`。
-- **当前状态**：可用（配置项）；本会话是 ptc。
+- **当前状态**：可用（配置项）；观察用的 preset 是 ptc。
 - **证据**：
 
 | 模式 | 模型看见什么 | 代价 |
 |---|---|---|
 | native | 每个工具一条 function-call schema | 工具定义本身进提示词。一次工具面收窄实测 记可见面 113 个时约 12.3K tokens |
-| ptc | 只直接暴露 `run_code`，其余进 SDK 文档 | 一次工具面收窄实测 实测：同一面折进系统提示词约 **19.2K**（`<internal-notes>:857`） |
+| ptc | 只直接暴露 `run_code`，其余进 SDK 文档 | 一次工具面收窄实测：同一面折进系统提示词约 **19.2K** |
 
-<team-preset> `agent.cordis.yml:213-216` `mode: ptc`。直调 bash 被 GATE-022 折叠。数字 19.2K 是 2026-09-12 那次测量，**本回合未重测 token**。
+<team-preset> `agent.cordis.yml:213-216` `mode: ptc`。直调 bash 被 GATE-022 折叠。数字 19.2K 是 2026-09-12 那次测量，**本次盘点（2026-09-13）未重测 token**。
 - **状态戳**：截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
 - **关联**：GATE-022、CAP-022。
 
@@ -174,7 +170,7 @@ agentDefaultModel agentLoop agentPresets agents appExit appReady approval attach
 ## ENV-080 · 事件名有哪些、何时触发
 
 - **是什么**：`ctx.on('agent/session-start', …)`。
-- **当前状态**：可用（类型已核实；触发时机摘自 .d.ts 注释，**没有在本回合对每个事件打探针**）。
+- **当前状态**：可用（类型已核实；触发时机摘自 .d.ts 注释，**本次盘点（2026-09-13）未对每个事件打探针**）。
 - **状态戳**：截至 2026-09-13 · DSH CLI 0.1.5-rc.1 · 关键包 0.1.5-rc.2
 
 | 事件 | 包 | 何时（类型注释） |

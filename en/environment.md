@@ -5,8 +5,6 @@
 You edited a file and nothing changed, `ls` exploded on a directory name, or a mistyped service name came back empty: start here. Answers layout, naming, hot reload, preset (session assembly) syntax, deploy, presentation cost, service names and event names. Whether you can still use something is `./capabilities.md`.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2.
 
-First mention: preset (预设). After this, `preset`.
-
 ## Index
 
 | ID | One sentence |
@@ -50,7 +48,7 @@ First mention: preset (预设). After this, `preset`.
 | `settings.yaml` | User settings |
 | `projects.json` | Project/team org source of truth |
 | `console-inbox/` | Console pending queue (cross-team / cross-project messages) |
-| `profiles/web/cordis.patch.yml` | Host plugin rows (A counted 23; not re-counted at merge) |
+| `profiles/web/cordis.patch.yml` | Host plugin rows (counted 23 once; not re-counted at merge) |
 
 ## ENV-002 · Why sessions/ names start with --, and why ls blows up
 
@@ -97,7 +95,7 @@ Try 'ls --help' for more information.
 - **What it is**: keys like `ctx.get('agentPresets')`.
 - **How to take it**: each package `lib/types/index.d.ts` `interface Context { <name>: … }`, or `super(ctx, "<name>")`.
 - **Status**: available.
-- **Evidence**: `dsh-agent-presets/lib/index.js:1294` `super(ctx, "agentPresets")`. **Not** `presets`. This turn pulled 68 Context keys from types. Common misses:
+- **Evidence**: `dsh-agent-presets/lib/index.js:1294` `super(ctx, "agentPresets")`. Not `presets`. The 2026-09-13 inventory pulled 68 Context keys from types. Common misses:
 
 | Wrong | Right | Package |
 |---|---|---|
@@ -120,7 +118,7 @@ Third-party services registered onto Context are not in this official types list
 ## ENV-020 · Which edits take effect without a restart, which need one
 
 - **What it is**: hot-reload boundary.
-- **Status**: **available** (criterion nailed; the static `.rN.mjs` path has live evidence).
+- **Status**: **available** (criterion settled; the static `.rN.mjs` path has live evidence).
 - **Conclusion**: **every static plugin we actually edit (all `.rN.mjs`) will not hot-reload; restart always.** Only creating/editing an unversioned `.mjs` is versioned-reloaded by <hot-reload-plugin>.
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
 
@@ -163,9 +161,9 @@ Side observation (**not evidence**): after someone edited `<host-plugin>.mjs`, `
 | Mode | What the model sees | Cost |
 |---|---|---|
 | native | one function-call schema per tool | tool definitions themselves enter the prompt. One measured tool-surface narrowing: about 12.3K tokens at observed 113 visible |
-| ptc | only `run_code` exposed directly; the rest goes into SDK docs | one measured tool-surface narrowing: the same face folded into the system prompt about **19.2K** (`<internal-notes>:857`) |
+| ptc | only `run_code` exposed directly; the rest goes into SDK docs | one measured tool-surface narrowing: the same face folded into the system prompt about **19.2K** |
 
-<team-preset> `agent.cordis.yml:213-216` `mode: ptc`. Direct bash is folded by GATE-022. 19.2K is a 2026-09-12 measurement; **this turn did not re-measure tokens**.
+<team-preset> `agent.cordis.yml:213-216` `mode: ptc`. Direct bash is folded by GATE-022. 19.2K is a 2026-09-12 measurement; **not re-measured in the 2026-09-13 inventory**.
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
 - **Related**: GATE-022, CAP-022.
 
@@ -174,7 +172,7 @@ Side observation (**not evidence**): after someone edited `<host-plugin>.mjs`, `
 ## ENV-080 · Which event names exist, when they fire
 
 - **What it is**: `ctx.on('agent/session-start', …)`.
-- **Status**: available (types verified; fire timing taken from .d.ts comments; **this turn did not probe every event**).
+- **Status**: available (types verified; fire timing taken from .d.ts comments; **the 2026-09-13 inventory did not probe every event**).
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
 
 | Event | Package | When (type comments) |

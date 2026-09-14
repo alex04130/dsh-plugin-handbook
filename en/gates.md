@@ -4,7 +4,7 @@
 
 You hit an error and cannot match it to a rule: this file lists each gate with its criterion and verbatim error. A gate is a runtime check on an operation (refuse with an error, or silently change behaviour; the second kind still fills "verbatim error", which may say "there is no error"). Criterion / trigger / verbatim error / bypass.
 As of 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2. Five-value status: `available` / `partially available (off by default; recipe attached)` / `sealed (gate id attached)` / `never available` / `unverified`.
-Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx / OP-xxx, or `./<file>.md`.
+Cross-refs use CAP-xxx / GATE-xxx / ENV-xxx, or `./<file>.md`.
 Line numbers point at `/usr/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/<pkg>/lib/...`.
 
 ## Index
@@ -57,7 +57,7 @@ session "<id>": append is not available on a read handle
 - **As of**: 2026-09-14 · DSH 0.1.5-rc.2
 - **Related**: CAP-011, GATE-001.
 
-## GATE-002 · sessionPersistence.inspect is gone (sessionController.inspect is a different face)
+## GATE-002 · sessionPersistence.inspect is gone (sessionController.inspect is a different surface)
 
 - **Criterion**: the abstract class keeps only `create / open / flush / stat / list` (`dsh-session-persistence/lib/types/index.d.ts:99-155`). Package-wide grep for `inspect(` is zero hits.
 - **Trigger**: any plugin still calling `persistence.inspect(id)` or service-level `append(id, events)`.
@@ -68,8 +68,8 @@ persistence.inspect is not a function
 persistence.append is not a function
 ```
 
-- **The other face that remains**: real service name `sessionController`. Generated face `ctx.remote.session.inspect` (`dsh-tool-cordis/lib/index.js:2288-2301`) → `SessionInspection` (includes events). Same format gate (a v2 descriptor blows up the same way).
-- **Bypass** (persistence face): read `stat`+`open('read')`+`handle.read`; write `open('write')`+`handle.append`.
+- **The other surface that remains**: real service name `sessionController`. Generated surface `ctx.remote.session.inspect` (`dsh-tool-cordis/lib/index.js:2288-2301`) → `SessionInspection` (includes events). Same format gate (a v2 descriptor blows up the same way).
+- **Bypass** (persistence surface): read `stat`+`open('read')`+`handle.read`; write `open('write')`+`handle.append`.
 - **As of**: 2026-09-13 · DSH CLI 0.1.5-rc.1 · key packages 0.1.5-rc.2
 - **Related**: CAP-010, CAP-001, CAP-002, GATE-001.
 

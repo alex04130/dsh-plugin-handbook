@@ -1,12 +1,10 @@
-# 插件面全量（新块）
+# 插件面全量
 
 截至 2026-09-14 · DSH 0.1.5-rc.2。
 
 要挂服务、听事件、占槽，却分不清目录上有和这次 `ctx.get` 拿得到：用这份清单。
 
-> 这是插件可挂面清单，不是 [l2-host.md](l2-host.md) / [l2-client.md](l2-client.md) 的第二稿。l2-host 管安装树声明面 108/94 编号（HSV/HEV/HBI）；本稿管**插件作者能挂的清单**：host service 检视目录 71（其中运行面挂 60 / 未挂 11）+ host event 目录 62 + host builtin 目录 7 + client service 目录 8 + client slot 61 + theme token 13。
-> 查法：`cordis_inspect_query` 给目录（Service.listService / Event.listEvents / Builtin.listBuiltins / Slots.listSubTree / Theme.listTokens）。服务「挂没挂」另走宿主层动态插件逐个 `ctx.get(name)`，**listService 本身不保证已挂**。
-> 编号不与 HSV/CSL 抢：本表无 CAP/GATE/HSV 号。slot / token 路径与 [l2-client.md](l2-client.md) 同源。
+> 查法：`cordis_inspect_query` 给目录（Service.listService / Event.listEvents / Builtin.listBuiltins / Slots.listSubTree / Theme.listTokens）。服务「挂没挂」另走宿主层动态插件逐个 `ctx.get(name)`，**listService 本身不保证已挂**。安装树声明面编号在 [l2-host.md](l2-host.md)；槽路径在 [l2-client.md](l2-client.md)。本表无 CAP/GATE/HSV 号。
 
 <!-- doccheck:no-entries -->
 
@@ -23,7 +21,7 @@
 
 表体合计 **222**。
 
-71 = `Service.listService` 检视目录（声明面）。60/11 = 同一份目录上逐个 `ctx.get`（运行面，宿主层插件 ctx）。和 [l2-host.md](l2-host.md) 现口径一致，不是两套 71。
+71 = `Service.listService` 检视目录（声明面）。60/11 = 同一份目录上逐个 `ctx.get`（运行面，宿主层插件 ctx）。
 
 ## host service（71）
 
@@ -105,7 +103,7 @@
 
 > **waterfall 的监听器必须调用并返回 `next()`，否则下游全被挡住。** 某次观察里一个监听器扣住 `user-questions/request` 不调 next，提问框/审批弹窗出不来。
 
-一句取自安装树 `.d.ts` 首段（先前采集表有几条被截断，这里按原文补全）。
+一句取自安装树 `.d.ts` 首段。
 
 | event | mode | 一句 |
 |---|---|---|
