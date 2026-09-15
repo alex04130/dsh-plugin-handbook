@@ -1,3 +1,4 @@
+<!-- doccheck:no-entries -->
 # 调用没报错，为什么没生效？
 
 闸拒绝会带原文报错，去闸清单对就行。静默失败是另一类：返回值看着合法，走的却是你没要的那条路。没有这页，这种故障会让你把 `.d.ts` 再读一遍，而答案不在类型文件里。
@@ -182,11 +183,11 @@ cannot get property "systemPrompt" without inject
 
 症状：目录上有这个服务，`ctx.get` 得到 `undefined`，没有报错。
 
-`Service.listService` 是检视目录：本版本允许哪些接口。提供方原文：
+`Service.listService` 转出的是打包期静态表（`scripts/gen-cordis-api.ts` AST 扫类型声明），不是本机装载证明。提供方原文：
 
 > The Service/Event Catalog describes which interfaces this version permits; it does not guarantee that a Service is currently mounted.
 
-本观察，宿主层插件 ctx：目录 **71**，逐个 `ctx.get` **60 挂 / 11 未挂**。未挂包括 `planMode`、`e2b`、`lsp`、`compaction`、`agentTeams` 等（完整 11 个在插件面清单）。你按目录写了 `ctx.get('planMode')`，得到 `undefined`。
+「permits」指上游打包时扫进表的类型声明。本观察，宿主层插件 ctx：目录 **71**，逐个 `ctx.get` **60 挂 / 11 未挂**。11 个不是同一种「没挂」：有的在 preset isolate（`compaction` / `planMode`），有的本机 preset 没选（`terminals`），有的连实现包都没有（`agentTeams` / `lsp`）。完整分类在插件面清单。
 
 探针作用域是宿主层插件 ctx。只在别的 isolate 里挂的服务，对插件作者等于拿不到。换一个作用域照抄探针，数字会对不上。
 

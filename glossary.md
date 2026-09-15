@@ -34,7 +34,7 @@
 | 能力面 | 某个 agent 直接可见的工具集合；提权时看子集关系 | CAP-033 |
 | 预设 / preset | 会话装配单元。第一次写「预设（preset）」，后文只写 `preset` | ENV-092、CAP-090 |
 | 槽 / slot | client UI 插槽路径；数 `kind` 不是数 `name` | l2-client |
-| 声明面 | 安装树 `.d.ts`，或检视目录 listService/listEvents/listBuiltins。目录有 ≠ 已经挂上 | l2-host / l2-client |
+| 声明面 | 安装树 `.d.ts`，或打包期接口表 listService/listEvents/listBuiltins。目录有 ≠ 机器上有包 ≠ 已经挂上 | l2-host / l2-client |
 | 运行面 | 宿主层插件逐个 `ctx.get(name)`（服务）；slot 用 listSubTree，token 用 listTokens。listService **不是**运行面 | l2-host / plugin-surface |
 | 挂 / 未挂 | 宿主层插件 ctx.get 这次装配拿不拿得到。未挂可以是目录有、本次没装 | plugin-surface |
 | 水位 | **不用。** 不写这个词。不译。计数写「采到 N」或 observed count | 术语对照 |

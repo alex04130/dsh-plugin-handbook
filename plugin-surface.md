@@ -4,7 +4,11 @@
 
 要挂服务、听事件、占槽，却分不清目录上有和这次 `ctx.get` 拿得到：用这份清单。
 
-> 查法：`cordis_inspect_query` 给目录（Service.listService / Event.listEvents / Builtin.listBuiltins / Slots.listSubTree / Theme.listTokens）。目录名来自打包期元数据表（`dsh-tool-cordis/lib/index.js` 里 `key:` 正好 71），不是本机装载证明。服务「挂没挂」另走宿主层动态插件逐个 `ctx.get(name)`。安装树声明面编号在 [l2-host.md](l2-host.md)；槽路径在 [l2-client.md](l2-client.md)。本表无 CAP/GATE/HSV 号。
+> 查法：`cordis_inspect_query`。host 的 Service/Event/Builtin 目录是打包期静态表（`dsh-tool-cordis/lib/index.js` 里 `key:` 正好 71，`scripts/gen-cordis-api.ts` 生成）。client 的 Slots.listSubTree / Theme.listTokens 是活面，要运行中的页面应答。
+>
+> 目录里出现一个名字，只意味着：这个 DSH 版本打包时，上游仓库里有这个接口的类型声明被 AST 扫进表里。它不证明实现包装在你机器上（`agentTeams` / `inspector` / `lsp` 连 `.d.ts` 都没有），不证明它被装配挂上（compaction 类在 preset 的 isolate realm），也不证明你的 preset 选了它（`terminals` 只有 minimal 带）。三者是三道独立探针：宿主面 `ctx.get`、agent 面会话内观察、preset 行 + composition 检查。
+>
+> 安装树声明面编号在 [l2-host.md](l2-host.md)；槽路径在 [l2-client.md](l2-client.md)。本表无 CAP/GATE/HSV 号。
 
 <!-- doccheck:no-entries -->
 

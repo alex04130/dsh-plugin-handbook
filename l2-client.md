@@ -19,7 +19,7 @@ cordis_inspect_query({ platform:'client', provider:'Theme',  method:'listTokens'
 | 面 | 查法 | 数 | 怎么数 |
 |---|---|---|---|
 | **运行面 slot** | `Slots.listSubTree` | **61** | 数返回树里 `"kind":"…"` 的出现次数。别数 `"name"`（会数到 props，假的 131） |
-| **检视目录 client service** | `Service.listService` | **8** | 下表 CSR。listService 是目录，**不保证**已挂；本观察未另做 client ctx.get |
+| **检视目录 client service** | `Service.listService` | **8** | 下表 CSR。目录本身连「这台机器有这个包」都不保证，更不保证已挂；本观察未另做 client ctx.get |
 | **运行面 theme token** | `Theme.listTokens` | **13** | 下表 CTK 一行一项；名是 CSS 变量全称 |
 
 节点字段：`name/kind/scope/purpose/replaceRisk/children`。`kind` = 注册协议（single / list / keyed / chain）。`replaceRisk`：`shadows-shipped-ui` = 替换会盖掉发行版 UI；`none` = 追加/按 key 替换，不盖发行版根节点。

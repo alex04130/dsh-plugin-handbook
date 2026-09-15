@@ -2,13 +2,17 @@
 
 截至 2026-09-13 · DSH 0.1.5-rc.2。
 
-只看 `.d.ts` 会以为 `inspect` 还在：这份把声明和这次装配真挂上的分开。两面都要，差不是噪声：「声明有、运行时没挂」就是 `sessionPersistence.inspect` 那类坑。**只有运行面（逐个 ctx.get）能回答「我能不能拿到它」。** `Service.listService` 是检视目录：本版本允许哪些接口，**不保证**已经挂上。
+只看 `.d.ts` 会以为 `inspect` 还在：这份把声明和这次装配真挂上的分开。两面都要，差异不是噪声：「声明有、运行时没挂」就是 `sessionPersistence.inspect` 那类坑。**只有运行面（逐个 ctx.get）能回答「我能不能拿到它」。**
 
 | 面 | 怎么查 | 本观察的数 |
 |---|---|---|
 | **声明面（安装树）** | `.d.ts` 的 Context / Events 扩展 | 键 **108**、事件 **94**（本表主体 HSV/HEV） |
-| **声明面（打包期接口表）** | `Service.listService` 转出的是生成期静态表，不是本机装载证明 | service **71**、event **62**、builtin **7**。表里可以有既无 `.d.ts`、也无实现包的行（`agentTeams` / `inspector` / `lsp`） |
-| **运行面** | 宿主层动态插件逐个 `ctx.get(name)` | service **60** 挂 / **11** 未挂。探针作用域 = 宿主层插件 ctx；只在别的 isolate 可见的，对插件作者等于拿不到。事件与 builtin 没有「挂没挂」，不标运行面 |
+| **声明面（打包期接口表）** | `Service.listService` / `Event.listEvents` / `Builtin.listBuiltins` 转出的是生成期静态表（`scripts/gen-cordis-api.ts` 在上游打包时 AST 扫出来）。**不是本机装载证明** | service **71** · event **62** · builtin **7**。表里可以有既无 `.d.ts`、也无实现包的行（`agentTeams` / `inspector` / `lsp`） |
+| **运行面（宿主）** | 宿主层动态插件逐个 `ctx.get(name)` | service **60** 挂 / **11** 未挂。探针作用域 = 宿主层插件 ctx；只在别的 isolate 可见的，对插件作者等于拿不到。事件与 builtin 没有「挂没挂」，不标运行面 |
+| **活面（client）** | `Slots.listSubTree` / `Theme.listTokens`，要运行中的页面应答 | slot **61** · token **13**（见表 [l2-client.md](l2-client.md)） |
+| **活面（client 服务）** | client `Service.listService` | **8** |
+
+目录里出现一个名字，只意味着：这个 DSH 版本打包时，上游仓库里有这个接口的类型声明被 AST 扫进表里。它不证明实现包装在你机器上（`agentTeams` / `inspector` / `lsp` 连 `.d.ts` 都没有），不证明它被装配挂上（compaction 类在 preset 的 isolate realm），也不证明你的 preset 选了它（`terminals` 只有 minimal 带）。三者是三道独立探针：宿主面 `ctx.get`、agent 面会话内观察、preset 行 + composition 检查。
 
 运行面数字随 preset 变。工具面 `Tool.listTools` 跟 preset 走，不要写死成一个数。
 
